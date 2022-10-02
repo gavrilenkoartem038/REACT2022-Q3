@@ -8,7 +8,7 @@ class Card extends React.Component<ICard, { items: string }> {
 
   render() {
     return (
-      <div className="border-2 rounded">
+      <div className="border-2 rounded border-slate-500">
         <img src={this.props.image} alt={this.props.name} />
         <p>{this.props.name}</p>
       </div>

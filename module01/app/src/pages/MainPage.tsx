@@ -1,4 +1,5 @@
-import { Card } from 'conponents/Card';
+import { CardList } from 'conponents/CardList';
+import { Search } from 'conponents/Search';
 import React from 'react';
 import { ICard, nullCard } from 'types.tsx/types';
 
@@ -28,21 +29,9 @@ class MainPage extends React.Component<
     const cards = this.state.items;
     const search = this.state.search;
     return (
-      <main className="container mx-auto">
-        <input
-          type="text"
-          value={this.state.search}
-          onChange={(e) => this.setState({ search: e.target.value })}
-        />
-        <div className="container flex flex-wrap gap-4">
-          {cards
-            .filter((card) =>
-              search ? card.name.toLowerCase().includes(search.toLowerCase()) : card
-            )
-            .map((card) => (
-              <Card {...card} key={card.id} />
-            ))}
-        </div>
+      <main className="container mx-auto p-4 bg-slate-200">
+        <Search search={search} func={(search) => this.setState({ search: search })} />
+        <CardList {...{ cards, search }} />
       </main>
     );
   }
