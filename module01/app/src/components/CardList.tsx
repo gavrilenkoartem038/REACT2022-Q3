@@ -1,4 +1,4 @@
-import { Card } from 'conponents/Card';
+import { Card } from 'components/Card';
 import React from 'react';
 import { ICard } from 'types.tsx/types';
 

@@ -11,6 +11,7 @@ class Search extends React.Component<{ search: string; func: (el: string) => voi
         <input
           type="text"
           value={this.props.search}
+          placeholder="Search..."
           onChange={(e) => this.props.func(e.target.value)}
         />
       </div>

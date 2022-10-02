@@ -1,5 +1,5 @@
-import { CardList } from 'conponents/CardList';
-import { Search } from 'conponents/Search';
+import { CardList } from 'components/CardList';
+import { Search } from 'components/Search/Search';
 import React from 'react';
 import { ICard, nullCard } from 'types.tsx/types';
 
@@ -23,6 +23,10 @@ class MainPage extends React.Component<
 
   componentWillUnmount(): void {
     localStorage.setItem('search', this.state.search);
+  }
+
+  async ret() {
+    console.log('aaa');
   }
 
   render() {

@@ -6,7 +6,7 @@ import { MainPage } from './pages/MainPage';
 import { AboutPage } from './pages/AboutPage';
 import { NotFoundPage } from './pages/NotFounPage';
 
-import { Layout } from './conponents/Layout';
+import { Layout } from './components/Layout';
 
 class App extends React.Component {
   render(): React.ReactNode {
