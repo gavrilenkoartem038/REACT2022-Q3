@@ -6,16 +6,19 @@ const Layout = () => {
   return (
     <>
       <div className="bg-slate-500">
-        <header className="container mx-auto p-4">
-          <NavLink to="/" end className="p-2">
-            Home
-          </NavLink>
-          <NavLink to="/about" className="p-2">
-            About us
-          </NavLink>
+        <header className="flex justify-between flex-wrap items-center container mx-auto px-10 py-4">
+          <div className="text-4xl text-white">Rick and Morty</div>
+          <div className="flex gap-2">
+            <NavLink to="/" end className="nav-link">
+              Home
+            </NavLink>
+            <NavLink to="/about" className="nav-link">
+              About us
+            </NavLink>
+          </div>
         </header>
       </div>
-      <div className="bg-slate-100">
+      <div>
         <main className="container mx-auto p-4 flex flex-col items-center">
           <Outlet />
         </main>

@@ -8,8 +8,8 @@ class Card extends React.Component<ICard, { items: string }> {
 
   render() {
     return (
-      <div className="card flex flex-col border-2 rounded border-slate-500">
-        <img src={this.props.image} alt={this.props.name} />
+      <div className="card flex flex-col border-2 rounded-lg p-4 border-slate-300 bg-white">
+        <img src={this.props.image} alt={this.props.name} className="rounded-lg" />
         <div className="self-center text-lg font-bold">{this.props.name}</div>
         <div>
           <span className="font-bold">Status:</span> {this.props.status}

@@ -13,7 +13,7 @@ class Search extends React.Component<{ search: string; func: (el: string) => voi
           value={this.props.search}
           placeholder="Search..."
           onChange={(e) => this.props.func(e.target.value)}
-          className="p-2 w-8/12"
+          className="p-2 w-8/12 search"
         />
       </div>
     );
