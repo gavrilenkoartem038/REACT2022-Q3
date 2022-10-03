@@ -1,7 +1,7 @@
-import { CardList } from 'components/CardList';
+import { CardList } from 'components/CardList/CardList';
 import { Search } from 'components/Search/Search';
 import React from 'react';
-import { ICard, nullCard } from 'types.tsx/types';
+import { ICard, nullCard } from 'types/types';
 
 class MainPage extends React.Component<
   Record<string, unknown>,
@@ -25,18 +25,14 @@ class MainPage extends React.Component<
     localStorage.setItem('search', this.state.search);
   }
 
-  async ret() {
-    console.log('aaa');
-  }
-
   render() {
     const cards = this.state.items;
     const search = this.state.search;
     return (
-      <main className="container mx-auto p-4 bg-slate-200">
+      <>
         <Search search={search} func={(search) => this.setState({ search: search })} />
         <CardList {...{ cards, search }} />
-      </main>
+      </>
     );
   }
 }

@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import App from 'App';
+import { Search } from './Search';
 
 interface Store {
   [key: string]: string;
@@ -38,9 +39,23 @@ class LocalStorageMock {
   }
 }
 
+const onChange = jest.fn();
+
 describe('Search', () => {
   global.localStorage = new LocalStorageMock();
+
   it('render seach-bar', () => {
+    render(<Search search="hello" func={onChange} />);
+    expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
+  });
+
+  it('onchange function', () => {
+    render(<Search search="" func={onChange} />);
+    userEvent.type(screen.getByRole('textbox'), 'react');
+    expect(onChange).toHaveBeenCalledTimes(5);
+  });
+
+  it('test save localStorage', () => {
     render(
       <BrowserRouter>
         <App />
