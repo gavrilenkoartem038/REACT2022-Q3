@@ -12,6 +12,9 @@ const Layout = () => {
             <NavLink to="/" end className="nav-link">
               Home
             </NavLink>
+            <NavLink to="/form" end className="nav-link">
+              Forms
+            </NavLink>
             <NavLink to="/about" className="nav-link">
               About us
             </NavLink>

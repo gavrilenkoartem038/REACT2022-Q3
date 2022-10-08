@@ -39,3 +39,10 @@ export const nullCard = {
   url: '',
   created: '',
 };
+
+export type PersconCard = {
+  name: string;
+  surname: string;
+  date: string;
+  file: string;
+};

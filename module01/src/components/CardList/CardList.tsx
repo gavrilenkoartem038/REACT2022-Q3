@@ -25,7 +25,7 @@ class CardList extends React.Component<IProps> {
 
   render() {
     return (
-      <div className="container flex flex-wrap gap-8 justify-around">
+      <div className="container grid justify-evenly gap-8 grid-cols-auto">
         {this.filterCards(this.props.cards)}
       </div>
     );

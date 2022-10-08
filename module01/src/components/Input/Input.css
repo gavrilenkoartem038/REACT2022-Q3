@@ -1,0 +1,10 @@
+.validation-field {
+  font-size: 0.8em;
+  color: rgb(255, 0, 0);
+  visibility: hidden;
+  order: 1;
+}
+
+.invalid .validation-field{
+  visibility: visible;
+}
