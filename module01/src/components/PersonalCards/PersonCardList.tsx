@@ -19,6 +19,7 @@ class PersonCardList extends React.Component<Props> {
               <div
                 key={index}
                 className="card flex flex-col border-2 rounded-lg p-4 border-slate-300 bg-white"
+                data-testid="person-card"
               >
                 <div className="w-48 h-48 flex self-center items-center justify-center">
                   <img src={card.file} alt="" className="rounded-lg max-w-full max-h-full" />
