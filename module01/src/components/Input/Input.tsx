@@ -44,6 +44,7 @@ class Input extends React.Component<Props> {
           }
           ref={reference}
           onChange={onChange}
+          data-testid={name}
         />
         <div className="validation-field">{validationField}</div>
       </div>

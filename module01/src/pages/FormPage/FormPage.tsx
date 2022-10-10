@@ -1,5 +1,5 @@
 import Form from 'components/Form/Form';
-import { PersonCardList } from 'components/PersonalCards/PersonCardLise';
+import { PersonCardList } from 'components/PersonalCards/PersonCardList';
 import React from 'react';
 import { PersconCard } from 'types/types';
 
