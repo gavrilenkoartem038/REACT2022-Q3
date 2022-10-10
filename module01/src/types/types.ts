@@ -45,4 +45,5 @@ export type PersconCard = {
   surname: string;
   date: string;
   file: string;
+  country: string;
 };

@@ -22,7 +22,7 @@ const Layout = () => {
         </header>
       </div>
       <div>
-        <main className="container mx-auto p-4 flex flex-col items-center">
+        <main className="container mx-auto p-4 flex flex-col items-center gap-4">
           <Outlet />
         </main>
       </div>

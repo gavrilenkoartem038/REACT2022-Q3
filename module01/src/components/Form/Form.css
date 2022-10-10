@@ -1,3 +1,18 @@
-button:disabled {
-  background-color: aqua;
+.button {
+  display: block;
+  padding: 0.5rem 1rem; 
+  border-radius: 0.25rem;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button:disabled {
+  background-color: rgb(61, 71, 85);
+  opacity: 0.5;
+  cursor: inherit;
+}
+.button:hover {
+  background-color: rgb(0, 68, 255)
 }

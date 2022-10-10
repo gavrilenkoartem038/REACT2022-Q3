@@ -4,6 +4,11 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         auto: 'repeat(auto-fit, 336px)',
+        auto1: 'repeat(auto-fit, 276px)',
+      },
+      colors: {
+        blue: '#0000ff',
+        'blue-hover': '#0044ff',
       },
     },
   },
