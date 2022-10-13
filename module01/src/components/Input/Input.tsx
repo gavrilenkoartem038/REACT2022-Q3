@@ -1,23 +1,20 @@
 import React from 'react';
+
 import './Input.css';
 
 interface Props {
-  type?: string;
+  type: string;
   name: string;
-  label?: string;
-  validationField?: string;
+  label: string;
+  validationField: string;
   valid: boolean;
   reference: React.RefObject<HTMLInputElement>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class Input extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
-    const { type = 'text', name, label, validationField, valid, reference, onChange } = this.props;
+    const { type, name, label, validationField, valid, reference, onChange } = this.props;
     const className = () => {
       let initClass = 'input-block';
       if (type === 'checkbox') {
@@ -33,13 +30,16 @@ class Input extends React.Component<Props> {
     };
     return (
       <div className={className()}>
-        <label className="label">{label}</label>
+        <label htmlFor={name} className="label">
+          {label}
+        </label>
         <input
           type={type}
           name={name}
+          id={name}
           className={
             type === 'file'
-              ? 'input w-full file:border-0 file:bg-blue file:hover:bg-blue-hover text-white file:py-1 file:px-2 file:text-white text-black file:rounded file:cursor-pointer'
+              ? 'input w-full file:py-1 file:px-2 file:border-0 file:rounded file:bg-blue file:hover:bg-blue-hover text-white file:text-white text-black file:cursor-pointer'
               : 'input w-full'
           }
           ref={reference}

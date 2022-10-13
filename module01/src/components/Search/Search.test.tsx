@@ -1,9 +1,10 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
 import App from 'App';
-import { Search } from './Search';
+
+import Search from './Search';
 
 interface Store {
   [key: string]: string;
@@ -11,6 +12,7 @@ interface Store {
 
 class LocalStorageMock {
   store: Store;
+
   length: number;
 
   constructor() {

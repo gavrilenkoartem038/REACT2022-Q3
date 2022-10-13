@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './Select.css';
 
 interface Props {
@@ -9,16 +10,14 @@ interface Props {
 }
 
 class Select extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
     const { name, label, reference, values } = this.props;
     return (
       <div className="input-block">
-        <label className="label">{label}</label>
-        <select name={name} ref={reference}>
+        <label htmlFor={name} className="label">
+          {label}
+        </label>
+        <select name={name} id={name} ref={reference}>
           {values.map((value) => {
             return (
               <option key={value} value={value}>

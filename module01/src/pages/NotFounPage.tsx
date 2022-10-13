@@ -1,11 +1,9 @@
 import React from 'react';
 
-const NotFoundPage = () => {
-  return (
-    <>
-      <p>This is 404 page</p>
-    </>
-  );
-};
+class NotFoundPage extends React.Component {
+  render() {
+    return <p>This is 404 page</p>;
+  }
+}
 
-export { NotFoundPage };
+export default NotFoundPage;

@@ -1,6 +1,7 @@
-import Form from 'components/Form/Form';
-import { PersonCardList } from 'components/PersonalCards/PersonCardList';
 import React from 'react';
+
+import Form from 'components/Form/Form';
+import PersonCardList from 'components/PersonalCards/PersonCardList';
 import { PersconCard } from 'types/types';
 
 interface State {
@@ -25,13 +26,14 @@ class FormPage extends React.Component<Record<string, unknown>, State> {
   }
 
   render() {
+    const { cards } = this.state;
     return (
       <>
         <Form addCard={this.addCard} />
-        <PersonCardList cards={this.state.cards} />
+        <PersonCardList cards={cards} />
       </>
     );
   }
 }
 
-export { FormPage };
+export default FormPage;

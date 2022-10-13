@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { FormPage } from './FormPage';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import FormPage from './FormPage';
 
 describe('Form page tests', () => {
   global.URL.createObjectURL = jest.fn();

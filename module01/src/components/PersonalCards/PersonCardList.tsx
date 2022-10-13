@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { PersconCard } from 'types/types';
 
 interface Props {
@@ -6,23 +7,20 @@ interface Props {
 }
 
 class PersonCardList extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
+    const { cards } = this.props;
     return (
-      <div className="container grid justify-evenly gap-8 grid-cols-auto1">
-        {this.props.cards.length > 0 &&
-          this.props.cards.map((card, index) => {
+      <div className="container grid grid-cols-auto1 justify-evenly gap-8">
+        {cards.length > 0 &&
+          cards.map((card) => {
             return (
               <div
-                key={index}
-                className="card flex flex-col border-2 rounded-lg p-4 border-slate-300 bg-white"
+                key={card.name}
+                className="card flex flex-col p-4 border-2 rounded-lg border-slate-300 bg-white"
                 data-testid="person-card"
               >
                 <div className="w-48 h-48 flex self-center items-center justify-center">
-                  <img src={card.file} alt="" className="rounded-lg max-w-full max-h-full" />
+                  <img src={card.file} alt="" className="max-w-full max-h-full rounded-lg" />
                 </div>
                 <div>
                   <span className="font-bold">Name:</span> {card.name}
@@ -44,4 +42,4 @@ class PersonCardList extends React.Component<Props> {
   }
 }
 
-export { PersonCardList };
+export default PersonCardList;

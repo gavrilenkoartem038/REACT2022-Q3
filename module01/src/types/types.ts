@@ -19,27 +19,6 @@ export interface ICard {
   created: string;
 }
 
-export const nullCard = {
-  id: 0,
-  name: '',
-  status: '',
-  species: '',
-  type: '',
-  gender: '',
-  origin: {
-    name: '',
-    url: '',
-  },
-  location: {
-    name: '',
-    url: '',
-  },
-  image: '',
-  episode: [],
-  url: '',
-  created: '',
-};
-
 export type PersconCard = {
   name: string;
   surname: string;

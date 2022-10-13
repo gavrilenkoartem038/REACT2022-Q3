@@ -1,16 +1,19 @@
-import { CardList } from 'components/CardList/CardList';
-import { Search } from 'components/Search/Search';
 import React from 'react';
-import { ICard, nullCard } from 'types/types';
 
-class MainPage extends React.Component<
-  Record<string, unknown>,
-  { items: ICard[]; search: string }
-> {
+import CardList from 'components/CardList/CardList';
+import Search from 'components/Search/Search';
+import { ICard } from 'types/types';
+
+interface State {
+  cards: ICard[];
+  search: string;
+}
+
+class MainPage extends React.Component<Record<string, unknown>, State> {
   constructor(props: Record<string, unknown>) {
     super(props);
     this.state = {
-      items: [nullCard],
+      cards: [] as State['cards'],
       search: localStorage.getItem('search') || '',
     };
   }
@@ -18,23 +21,27 @@ class MainPage extends React.Component<
   componentDidMount(): void {
     fetch('https://rickandmortyapi.com/api/character')
       .then((response) => response.json())
-      .then((data) => this.setState({ items: data.results }));
+      .then((data) => this.setState({ cards: data.results }));
   }
 
   componentWillUnmount(): void {
-    localStorage.setItem('search', this.state.search);
+    const { search } = this.state;
+    localStorage.setItem('search', search);
   }
 
   render() {
-    const cards = this.state.items;
-    const search = this.state.search;
+    const { cards, search } = this.state;
+    const searchCard = (searchStr: string) => {
+      return this.setState({ search: searchStr });
+    };
+
     return (
       <>
-        <Search search={search} func={(search) => this.setState({ search: search })} />
-        <CardList {...{ cards, search }} />
+        <Search search={search} func={searchCard} />
+        <CardList cards={cards} search={search} />
       </>
     );
   }
 }
 
-export { MainPage };
+export default MainPage;
