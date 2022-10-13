@@ -18,24 +18,3 @@ export interface ICard {
   url: string;
   created: string;
 }
-
-export const nullCard = {
-  id: 0,
-  name: '',
-  status: '',
-  species: '',
-  type: '',
-  gender: '',
-  origin: {
-    name: '',
-    url: '',
-  },
-  location: {
-    name: '',
-    url: '',
-  },
-  image: '',
-  episode: [],
-  url: '',
-  created: '',
-};

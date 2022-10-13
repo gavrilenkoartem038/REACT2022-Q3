@@ -1,11 +1,9 @@
 import React from 'react';
 
-const AboutPage = () => {
-  return (
-    <>
-      <p>This is about page</p>
-    </>
-  );
-};
+class AboutPage extends React.Component {
+  render() {
+    return <p>This is about page</p>;
+  }
+}
 
-export { AboutPage };
+export default AboutPage;

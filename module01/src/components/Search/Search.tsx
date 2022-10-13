@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
-class Search extends React.Component<{ search: string; func: (el: string) => void }> {
-  constructor(props: { search: string; func: (el: string) => void }) {
-    super(props);
-  }
+import './Search.css';
 
+interface Props {
+  search: string;
+  func: (el: string) => void;
+}
+
+class Search extends React.Component<Props> {
   render() {
+    const { search, func } = this.props;
+    const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+      return func(event.target.value);
+    };
+
     return (
       <div className="flex justify-center pb-4 w-full">
         <input
           type="text"
-          value={this.props.search}
+          value={search}
           placeholder="Search..."
-          onChange={(e) => this.props.func(e.target.value)}
+          onChange={onChangeSearch}
           className="p-2 w-8/12 search"
         />
       </div>
@@ -20,4 +28,4 @@ class Search extends React.Component<{ search: string; func: (el: string) => voi
   }
 }
 
-export { Search };
+export default Search;

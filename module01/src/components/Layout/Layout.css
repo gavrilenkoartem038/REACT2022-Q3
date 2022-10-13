@@ -1,0 +1,12 @@
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem; 
+  border-radius: 0.25rem;
+  background-color: rgb(61, 71, 85);
+  color: white;
+}
+
+.nav-link.active {
+  background-color: blue;
+  font-weight: bold;
+}

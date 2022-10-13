@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { MainPage } from './MainPage';
 import userEvent from '@testing-library/user-event';
+
+import MainPage from './MainPage';
 
 describe('Main page tests', () => {
   it('render main page', async () => {
