@@ -41,20 +41,20 @@ class LocalStorageMock {
   }
 }
 
-const onChange = jest.fn();
+const onSubmit = jest.fn();
 
 describe('Search', () => {
   global.localStorage = new LocalStorageMock();
 
   it('render seach-bar', () => {
-    render(<Search search="hello" func={onChange} />);
+    render(<Search func={onSubmit} />);
     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
   });
 
   it('onchange function', () => {
-    render(<Search search="" func={onChange} />);
-    userEvent.type(screen.getByRole('textbox'), 'react');
-    expect(onChange).toHaveBeenCalledTimes(5);
+    render(<Search func={onSubmit} />);
+    userEvent.click(screen.getByText(/search/i));
+    expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
   it('test save localStorage', () => {
@@ -65,7 +65,9 @@ describe('Search', () => {
     );
     const search = screen.getByPlaceholderText(/search/i) as HTMLInputElement;
     const about = screen.getByText(/about/i);
+    const button = screen.getByText(/search/i);
     userEvent.type(search, 'my');
+    userEvent.click(button);
     userEvent.click(about);
     expect(localStorage.getItem('search')).toEqual('my');
   });
