@@ -32,7 +32,7 @@ class Search extends React.Component<Props, State> {
 
     return (
       <div className="flex justify-center pb-4 w-full">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="form">
           <input
             type="text"
             value={value}
@@ -40,7 +40,9 @@ class Search extends React.Component<Props, State> {
             placeholder="Search..."
             className="p-2 w-8/12 search"
           />
-          <button type="submit">Search</button>
+          <button type="submit" className="button">
+            Search
+          </button>
         </form>
       </div>
     );
