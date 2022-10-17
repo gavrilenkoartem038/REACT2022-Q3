@@ -44,6 +44,17 @@ describe('Form tests', () => {
   it('should enable submit button on input "name" value change', () => {
     render(<Form addCard={mockAddCard} />);
     const inputName = screen.getByTestId('name');
+    const surnameBlock = screen.getByTestId('surname').parentElement;
+    const button = screen.getByText(/Create card/i);
+    userEvent.type(inputName, 'qwe');
+    userEvent.click(button);
+    expect(button).toBeDisabled();
+    expect(surnameBlock?.classList.contains('invalid')).toBe(true);
+  });
+
+  it('should set invalid input classes on input invalid values', () => {
+    render(<Form addCard={mockAddCard} />);
+    const inputName = screen.getByTestId('name');
     userEvent.type(inputName, 'qwe');
     expect(screen.getByText(/Create card/i)).toBeEnabled();
   });

@@ -19,8 +19,14 @@ class Modal extends React.Component<Props> {
         className={active ? 'modal active' : 'modal'}
         onClick={() => setActive(false)}
         aria-hidden="true"
+        data-testid="modal"
       >
-        <div className="modal-content" onClick={(e) => e.stopPropagation()} aria-hidden="true">
+        <div
+          className="modal-content"
+          onClick={(e) => e.stopPropagation()}
+          aria-hidden="true"
+          data-testid="modal-content"
+        >
           <img src={image} alt={name} className="rounded-lg" />
           <div className="modal-info">
             <div className="self-center text-lg font-bold">{name}</div>

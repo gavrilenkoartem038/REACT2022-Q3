@@ -9,7 +9,7 @@ export interface IProps {
 
 class CardList extends React.Component<IProps> {
   static filterCards(cards: ICard[]) {
-    if (cards) {
+    if (cards && cards.length) {
       return cards.map((card) => <Card card={card} key={card.id} />);
     }
     return <div>Cards not found</div>;

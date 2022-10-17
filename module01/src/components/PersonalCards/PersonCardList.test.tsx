@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { mockPersonCards } from 'mockData';
+import { mockPersonCards } from 'mocks/mockData';
 
 import PersonCardList from './PersonCardList';
 
