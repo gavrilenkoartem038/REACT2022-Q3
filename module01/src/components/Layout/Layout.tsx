@@ -8,7 +8,7 @@ class Layout extends React.Component {
     return (
       <>
         <div className="bg-slate-500">
-          <header className="container flex justify-between flex-wrap items-center mx-auto px-10 py-4">
+          <header className="header">
             <div className="text-4xl text-white">Rick and Morty</div>
             <div className="flex gap-2">
               <NavLink to="/" end className="nav-link">

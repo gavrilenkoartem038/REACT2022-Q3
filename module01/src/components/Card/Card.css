@@ -1,7 +1,11 @@
 .card {
   position: relative;
+  max-width: calc(100vw - 20px);
   transition: 0.2s;
   cursor: pointer;
+}
+.card img {
+  width: 100%;
 }
 
 .card::after {

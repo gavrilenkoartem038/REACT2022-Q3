@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        auto: 'repeat(auto-fit, 336px)',
+        auto: 'repeat(auto-fit, minmax(auto, 336px))',
         auto1: 'repeat(auto-fit, 276px)',
       },
       colors: {
