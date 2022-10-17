@@ -58,7 +58,7 @@
     "import/order": "off",
     "react/prefer-stateless-function": 0,
     "react/static-property-placement": 0,
-    "import/no-extraneous-dependencies": 0,
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*{.,_}{test,spec}.{ts,tsx}"]}],
     "import/no-unresolved": [
       2,
       {
