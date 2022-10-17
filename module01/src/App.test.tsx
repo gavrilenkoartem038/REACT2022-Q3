@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import App from 'App';
 
 describe('roter and render pages', () => {
-  test('renders main page', () => {
+  test('should renders main page', () => {
     render(
       <BrowserRouter>
         <App />
@@ -14,7 +14,7 @@ describe('roter and render pages', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
-  test('go to about page', () => {
+  test('should go to about page', () => {
     render(
       <BrowserRouter>
         <App />
@@ -24,7 +24,7 @@ describe('roter and render pages', () => {
     expect(screen.getByText(/about page/i)).toBeInTheDocument();
   });
 
-  test('go to 404 page', () => {
+  test('should go to 404 page', () => {
     render(
       <MemoryRouter initialEntries={['/fdsfdsds']}>
         <App />

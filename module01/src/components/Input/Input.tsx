@@ -2,34 +2,28 @@ import React from 'react';
 
 import './Input.css';
 
-interface Props {
-  type: string;
-  name: string;
-  label: string;
-  validationField: string;
-  valid: boolean;
-  reference: React.RefObject<HTMLInputElement>;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { Props } from './Iput.types';
 
 class Input extends React.Component<Props> {
   render() {
     const { type, name, label, validationField, valid, reference, onChange } = this.props;
-    const className = () => {
-      let initClass = 'input-block';
-      if (type === 'checkbox') {
-        initClass += ' checkbox';
-      }
-      if (type === 'file') {
-        initClass += ' file:border-0';
-      }
+    const getClassName = () => {
+      let baseClass = 'input-block';
       if (!valid) {
-        initClass += ' invalid';
+        baseClass = `${baseClass} invalid`;
       }
-      return initClass;
+
+      switch (type) {
+        case 'checkbox':
+          return `${baseClass} checkbox`;
+        case 'file':
+          return `${baseClass} file:border-0`;
+        default:
+          return baseClass;
+      }
     };
     return (
-      <div className={className()}>
+      <div className={getClassName()}>
         <label htmlFor={name} className="label">
           {label}
         </label>

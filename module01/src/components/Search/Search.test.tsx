@@ -46,18 +46,18 @@ const onChange = jest.fn();
 describe('Search', () => {
   global.localStorage = new LocalStorageMock();
 
-  it('render seach-bar', () => {
+  it('should render seach-bar', () => {
     render(<Search search="hello" func={onChange} />);
     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
   });
 
-  it('onchange function', () => {
+  it('onChange function should be called the required number of times', () => {
     render(<Search search="" func={onChange} />);
     userEvent.type(screen.getByRole('textbox'), 'react');
     expect(onChange).toHaveBeenCalledTimes(5);
   });
 
-  it('test save localStorage', () => {
+  it('should save "search" value to localStorage', () => {
     render(
       <BrowserRouter>
         <App />

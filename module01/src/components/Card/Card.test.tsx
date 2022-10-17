@@ -8,7 +8,7 @@ import Card from './Card';
 const mockCard = mockCardList[0];
 
 describe('Card component', () => {
-  it('render card', () => {
+  it('should render card', () => {
     render(<Card card={mockCard} />);
     expect(screen.getByText(/humanoid/i)).toBeInTheDocument();
   });

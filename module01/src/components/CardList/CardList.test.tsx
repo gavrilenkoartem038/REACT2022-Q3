@@ -6,12 +6,12 @@ import { mockCardList } from 'mockData';
 import CardList from './CardList';
 
 describe('Card component', () => {
-  it('render 3 cards', () => {
+  it('should render 3 cards', () => {
     render(<CardList cards={mockCardList} search="" />);
     expect(screen.getByText(/female/i)).toBeInTheDocument();
   });
 
-  it('render cards with search', () => {
+  it('should render cards with search string', () => {
     render(<CardList cards={mockCardList} search="chris" />);
     expect(screen.getAllByText(/status/i).length).toBe(1);
   });
