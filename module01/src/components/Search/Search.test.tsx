@@ -46,18 +46,18 @@ const onSubmit = jest.fn();
 describe('Search', () => {
   global.localStorage = new LocalStorageMock();
 
-  it('render seach-bar', () => {
+  it('should render seach-bar', () => {
     render(<Search func={onSubmit} />);
     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
   });
 
-  it('onchange function', () => {
+  it('onChange function should be called the required number of times', () => {
     render(<Search func={onSubmit} />);
     userEvent.click(screen.getByText(/search/i));
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
-  it('test save localStorage', () => {
+  it('should save "search" value to localStorage', () => {
     render(
       <BrowserRouter>
         <App />

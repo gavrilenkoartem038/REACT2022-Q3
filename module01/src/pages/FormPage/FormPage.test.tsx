@@ -8,13 +8,13 @@ import FormPage from './FormPage';
 describe('Form page tests', () => {
   global.URL.createObjectURL = jest.fn();
 
-  it('render form page without cards ', () => {
+  it('should render form page without cards ', () => {
     render(<FormPage />);
     const cardsElement = screen.queryByTestId('person-card');
     expect(cardsElement).toBeNull();
   });
 
-  it('create card test', async () => {
+  it('should create card on input correct values', async () => {
     render(<FormPage />);
 
     const inputName = screen.getByTestId('name');

@@ -6,48 +6,50 @@ import Form from './Form';
 
 describe('Form tests', () => {
   global.URL.createObjectURL = jest.fn();
+  const mockAddCard = jest.fn();
 
-  it('input name test', () => {
-    render(<Form addCard={jest.fn()} />);
+  it('should change input "name" value on input change', () => {
+    render(<Form addCard={mockAddCard} />);
     const inputName = screen.getByTestId('name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, 'qwe');
     expect(inputName).toHaveValue('qwe');
   });
 
-  it('input surname test', () => {
-    render(<Form addCard={jest.fn()} />);
+  it('should change input "surname" value on input change', () => {
+    render(<Form addCard={mockAddCard} />);
     const inputSuname = screen.getByTestId('surname');
     expect(inputSuname).toBeInTheDocument();
     userEvent.type(inputSuname, 'asd');
     expect(inputSuname).toHaveValue('asd');
   });
 
-  it(' input date test', () => {
-    render(<Form addCard={jest.fn()} />);
+  it('should change input "date" value on input change', () => {
+    render(<Form addCard={mockAddCard} />);
+    const testDate = '1995-04-29';
     const inputDate = screen.getByTestId('date');
     expect(inputDate).toBeInTheDocument();
-    userEvent.type(inputDate, '1995-04-29');
-    expect(inputDate).toHaveValue('1995-04-29');
+    userEvent.type(inputDate, testDate);
+    expect(inputDate).toHaveValue(testDate);
   });
 
-  it(' select data processing test', () => {
-    render(<Form addCard={jest.fn()} />);
+  it('should change checkbox state on click', () => {
+    render(<Form addCard={mockAddCard} />);
     const inputDataProcessing = screen.getByTestId('checkbox');
     expect(inputDataProcessing).toBeInTheDocument();
     userEvent.click(inputDataProcessing);
     expect(inputDataProcessing).toBeChecked();
   });
 
-  it('enable submit button test', () => {
-    render(<Form addCard={jest.fn()} />);
+  it('should enable submit button on input "name" value change', () => {
+    render(<Form addCard={mockAddCard} />);
     const inputName = screen.getByTestId('name');
     userEvent.type(inputName, 'qwe');
     expect(screen.getByText(/Create card/i)).toBeEnabled();
   });
 
-  it('reset button test', () => {
-    render(<Form addCard={jest.fn()} />);
+  it('should clear input values on reset button click', () => {
+    render(<Form addCard={mockAddCard} />);
     const inputName = screen.getByTestId('name');
     const inputSuname = screen.getByTestId('name');
     userEvent.type(inputSuname, 'qwe');
@@ -57,8 +59,8 @@ describe('Form tests', () => {
     expect(inputSuname).toHaveValue('');
   });
 
-  it(' input file test', () => {
-    render(<Form addCard={jest.fn()} />);
+  it('should upload file on "file" input change', () => {
+    render(<Form addCard={mockAddCard} />);
     const inputFile = screen.getByTestId('file') as HTMLInputElement;
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
     expect(inputFile).toBeInTheDocument();

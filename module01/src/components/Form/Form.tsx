@@ -1,29 +1,13 @@
 import React from 'react';
 
-import { PersconCard } from 'types/types';
-
 import Input from '../Input/Input';
 import Select from '../Select/Select';
 
 import './Form.css';
 
-interface State {
-  isFirstTry: boolean;
-  buttonDisabled: boolean;
-  name: boolean;
-  surname: boolean;
-  date: boolean;
-  country: boolean;
-  dataProcessing: boolean;
-  img: string | null;
-  file: boolean;
-}
+import { Props, State } from './Form.types';
 
 const countries = ['BY', 'UA', 'GE', 'PL', 'LT'];
-
-interface Props {
-  addCard: (card: PersconCard) => void;
-}
 
 class Form extends React.Component<Props, State> {
   nameInput: React.RefObject<HTMLInputElement>;
@@ -68,9 +52,10 @@ class Form extends React.Component<Props, State> {
     const { name } = e.target;
     const { isFirstTry } = this.state;
     const inputImg = this.fileInput.current as HTMLInputElement;
-    if (name === 'file' && inputImg.files && inputImg.files.length !== 0) {
+    const isCorrectFileInput = name === 'file' && inputImg.files && inputImg.files.length !== 0;
+    if (isCorrectFileInput) {
       this.setState({
-        img: URL.createObjectURL(inputImg.files[0]),
+        img: URL.createObjectURL((inputImg.files as FileList)[0]),
         file: true,
       });
     }
@@ -113,21 +98,24 @@ class Form extends React.Component<Props, State> {
     const dataProcessing = this.dataProcessingInput.current as HTMLInputElement;
     const regexp = /\.(jpe?g|svg|png|gif)$/i;
     const validateFile = (): boolean => {
-      if (inputImg.files !== null && inputImg.files.length !== 0) {
-        if (inputImg.files[0].name.match(regexp)) {
+      const isCorrectFileInput = inputImg.files && inputImg.files.length !== 0;
+      if (isCorrectFileInput) {
+        if ((inputImg.files as FileList)[0].name.match(regexp)) {
           return true;
         }
       }
       return false;
     };
-    let isValid = true;
-    isValid = this.validateInput(name.length > 2, 'name') && isValid;
-    isValid = this.validateInput(surname.length > 2, 'surname') && isValid;
-    isValid = this.validateInput(new Date() > new Date(date), 'date') && isValid;
-    isValid = this.validateInput(validateFile(), 'file') && isValid;
-    isValid = this.validateInput(dataProcessing.checked, 'dataProcessing') && isValid;
-    if (isValid) this.setState({ buttonDisabled: false });
-    return isValid;
+    const isNameValid = this.validateInput(name.length > 2, 'name');
+    const isSurnameValid = this.validateInput(surname.length > 2, 'surname');
+    const isDateValid = this.validateInput(new Date() > new Date(date), 'date');
+    const isFileValid = this.validateInput(validateFile(), 'file');
+    const isDataProcessingChecked = this.validateInput(dataProcessing.checked, 'dataProcessing');
+    const isFormValid =
+      isNameValid && isSurnameValid && isDateValid && isFileValid && isDataProcessingChecked;
+
+    if (isFormValid) this.setState({ buttonDisabled: false });
+    return isFormValid;
   }
 
   resetForm() {
