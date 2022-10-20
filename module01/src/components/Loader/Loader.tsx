@@ -2,24 +2,22 @@ import React from 'react';
 
 import './Loader.css';
 
-class Loader extends React.Component {
-  render() {
-    return (
-      <div className="loader loader1">
+function Loader() {
+  return (
+    <div className="loader loader1">
+      <div>
         <div>
           <div>
             <div>
               <div>
-                <div>
-                  <div />
-                </div>
+                <div />
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Loader;
