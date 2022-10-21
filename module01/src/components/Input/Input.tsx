@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
 import './Input.css';
@@ -5,10 +6,10 @@ import './Input.css';
 import { Props } from './Iput.types';
 
 function Input(props: Props) {
-  const { type, name, label, validationField, valid, reference, onChange } = props;
+  const { type, name, label, error, errorMessage, register, needValidate } = props;
   const getClassName = () => {
     let baseClass = 'input-block';
-    if (!valid) {
+    if (error && needValidate) {
       baseClass = `${baseClass} invalid`;
     }
 
@@ -30,16 +31,15 @@ function Input(props: Props) {
         type={type}
         name={name}
         id={name}
+        data-testid={name}
         className={
           type === 'file'
             ? 'input w-full file:py-1 file:px-2 file:border-0 file:rounded file:bg-blue file:hover:bg-blue-hover text-white file:text-white text-black file:cursor-pointer'
             : 'input w-full'
         }
-        ref={reference}
-        onChange={onChange}
-        data-testid={name}
+        {...register}
       />
-      <div className="validation-field">{validationField}</div>
+      <div className="validation-field">{error && (error.message || errorMessage)}</div>
     </div>
   );
 }

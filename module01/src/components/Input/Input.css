@@ -16,6 +16,8 @@
 }
 
 .validation-field {
+  min-height: 20px;
+  min-width: 150px;
   font-size: 0.8em;
   color: rgb(255, 0, 0);
   visibility: hidden;

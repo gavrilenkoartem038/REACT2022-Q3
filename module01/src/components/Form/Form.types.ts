@@ -15,3 +15,12 @@ export interface State {
 export interface Props {
   addCard: (card: PersconCard) => void;
 }
+
+export interface FormFields {
+  name: string;
+  surname: string;
+  date: string;
+  country: string;
+  dataProcessing: boolean;
+  file: FileList;
+}

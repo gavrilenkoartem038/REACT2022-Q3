@@ -1,218 +1,178 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
 import Input from '../Input/Input';
 import Select from '../Select/Select';
 
 import './Form.css';
 
-import { Props, State } from './Form.types';
+import { FormFields, Props } from './Form.types';
 
 const countries = ['BY', 'UA', 'GE', 'PL', 'LT'];
 
-class Form extends React.Component<Props, State> {
-  nameInput: React.RefObject<HTMLInputElement>;
+function Form(props: Props) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<FormFields>();
 
-  surnameInput: React.RefObject<HTMLInputElement>;
+  const [needValidate, setNeedValidate] = useState(false);
 
-  dateInput: React.RefObject<HTMLInputElement>;
+  const resetForm = () => {
+    reset();
+  };
 
-  fileInput: React.RefObject<HTMLInputElement>;
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
+    const { addCard } = props;
+    addCard({
+      name: data.name,
+      surname: data.surname,
+      file: URL.createObjectURL(data.file[0]),
+      country: data.country,
+      date: data.date,
+    });
+    reset({
+      name: '',
+      surname: '',
+      date: '',
+      file: {} as FileList,
+      country: 'BY',
+      dataProcessing: false,
+    });
+    setNeedValidate(false);
+  };
 
-  countrySelect: React.RefObject<HTMLSelectElement>;
+  const onError: SubmitErrorHandler<FormFields> = () => {
+    setNeedValidate(true);
+  };
 
-  dataProcessingInput: React.RefObject<HTMLInputElement>;
+  const name = register('name', {
+    required: 'Required name',
+    minLength: {
+      value: 3,
+      message: 'Type at least 3 symbols',
+    },
+  });
 
-  constructor(props: Props) {
-    super(props);
-    this.nameInput = React.createRef();
-    this.surnameInput = React.createRef();
-    this.dateInput = React.createRef();
-    this.fileInput = React.createRef();
-    this.countrySelect = React.createRef();
-    this.dataProcessingInput = React.createRef();
+  const surname = register('surname', {
+    required: 'Required surname',
+    minLength: {
+      value: 3,
+      message: 'Type at least 3 symbols',
+    },
+  });
 
-    this.state = {
-      isFirstTry: true,
-      buttonDisabled: true,
-      name: true,
-      surname: true,
-      date: true,
-      country: true,
-      dataProcessing: true,
-      img: null,
-      file: true,
-    };
+  const date = register('date', {
+    required: 'Required date',
+    validate: (value) => {
+      return new Date(value) <= new Date();
+    },
+  });
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.resetForm = this.resetForm.bind(this);
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-  }
-
-  onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name } = e.target;
-    const { isFirstTry } = this.state;
-    const inputImg = this.fileInput.current as HTMLInputElement;
-    const isCorrectFileInput = name === 'file' && inputImg.files && inputImg.files.length !== 0;
-    if (isCorrectFileInput) {
-      this.setState({
-        img: URL.createObjectURL((inputImg.files as FileList)[0]),
-        file: true,
-      });
-    }
-
-    if (isFirstTry) {
-      this.setState({ buttonDisabled: false });
-    } else {
-      this.validateForm();
-    }
-  }
-
-  onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const { img } = this.state;
-    const { addCard } = this.props;
-    const name = (this.nameInput.current as HTMLInputElement).value;
-    const surname = (this.surnameInput.current as HTMLInputElement).value;
-    const date = (this.dateInput.current as HTMLInputElement).value;
-    const country = (this.countrySelect.current as HTMLSelectElement).value;
-    const file = img as string;
-
-    if (this.validateForm()) {
-      addCard({ name, surname, date, file, country });
-      this.resetForm();
-    } else {
-      this.setState({ isFirstTry: false, buttonDisabled: true });
-    }
-  }
-
-  validateInput(condition: boolean, field: keyof State) {
-    this.setState((state) => ({ ...state, [field]: condition }));
-    return condition;
-  }
-
-  validateForm(): boolean {
-    const name = (this.nameInput.current as HTMLInputElement).value;
-    const surname = (this.surnameInput.current as HTMLInputElement).value;
-    const date = (this.dateInput.current as HTMLInputElement).value;
-    const inputImg = this.fileInput.current as HTMLInputElement;
-    const dataProcessing = this.dataProcessingInput.current as HTMLInputElement;
-    const regexp = /\.(jpe?g|svg|png|gif)$/i;
-    const validateFile = (): boolean => {
-      const isCorrectFileInput = inputImg.files && inputImg.files.length !== 0;
-      if (isCorrectFileInput) {
-        if ((inputImg.files as FileList)[0].name.match(regexp)) {
+  const file = register('file', {
+    validate: (data) => {
+      const regexp = /\.(jpe?g|svg|png|gif)$/i;
+      if (data.length > 0) {
+        if (data[0].name.match(regexp)) {
           return true;
         }
       }
       return false;
-    };
-    const isNameValid = this.validateInput(name.length > 2, 'name');
-    const isSurnameValid = this.validateInput(surname.length > 2, 'surname');
-    const isDateValid = this.validateInput(new Date() > new Date(date), 'date');
-    const isFileValid = this.validateInput(validateFile(), 'file');
-    const isDataProcessingChecked = this.validateInput(dataProcessing.checked, 'dataProcessing');
-    const isFormValid =
-      isNameValid && isSurnameValid && isDateValid && isFileValid && isDataProcessingChecked;
+    },
+  });
 
-    if (isFormValid) this.setState({ buttonDisabled: false });
-    return isFormValid;
-  }
+  const country = register('country');
 
-  resetForm() {
-    (this.nameInput.current as HTMLInputElement).value = '';
-    (this.surnameInput.current as HTMLInputElement).value = '';
-    (this.dateInput.current as HTMLInputElement).value = '';
-    (this.fileInput.current as HTMLInputElement).value = '';
-    (this.countrySelect.current as HTMLSelectElement).value = 'BY';
-    (this.dataProcessingInput.current as HTMLInputElement).checked = false;
+  const dataProcessing = register('dataProcessing', {
+    validate: (value) => {
+      return value;
+    },
+  });
 
-    this.setState({
-      isFirstTry: true,
-      buttonDisabled: true,
-      name: true,
-      surname: true,
-      date: true,
-      country: true,
-      dataProcessing: true,
-      img: null,
-      file: true,
-    });
-  }
+  const IsBbuttonDisabled = (): boolean => {
+    if (
+      (isDirty && !needValidate) ||
+      (needValidate &&
+        !errors.name &&
+        !errors.surname &&
+        !errors.date &&
+        !errors.file &&
+        !errors.country &&
+        !errors.dataProcessing)
+    ) {
+      return false;
+    }
+    return true;
+  };
 
-  render() {
-    const { name, surname, date, file, dataProcessing, buttonDisabled } = this.state;
-    return (
-      <form
-        className="flex flex-col gap-2 border-2 rounded-lg p-4 border-slate-300 bg-white max-w-sm"
-        onSubmit={this.onSubmit}
-      >
-        <Input
-          type="text"
-          name="name"
-          label="Name"
-          validationField="Type at least 3 symbols"
-          valid={name}
-          reference={this.nameInput}
-          onChange={this.onChangeHandler}
-        />
-        <Input
-          type="text"
-          name="surname"
-          label="Surname"
-          validationField="Type at least 3 symbols"
-          valid={surname}
-          reference={this.surnameInput}
-          onChange={this.onChangeHandler}
-        />
-        <Input
-          type="date"
-          name="date"
-          label="Date of Birth"
-          validationField="Type date before now"
-          valid={date}
-          reference={this.dateInput}
-          onChange={this.onChangeHandler}
-        />
-        <Input
-          type="file"
-          name="file"
-          label="Avatar"
-          validationField="Add your avatar or choose file with correct extantion"
-          valid={file}
-          reference={this.fileInput}
-          onChange={this.onChangeHandler}
-        />
-        <Select name="select" label="Country" reference={this.countrySelect} values={countries} />
-        <Input
-          type="checkbox"
-          name="checkbox"
-          label="I agree with data processing"
-          validationField="You must agree with data processing"
-          valid={dataProcessing}
-          reference={this.dataProcessingInput}
-          onChange={this.onChangeHandler}
-        />
-        <div className="flex gap-2">
-          <button
-            type="submit"
-            data-testid="button-submit"
-            disabled={buttonDisabled}
-            className="button"
-          >
-            Create card
-          </button>
-          <button
-            type="button"
-            onClick={this.resetForm}
-            data-testid="button-reset"
-            className="button"
-          >
-            Reset
-          </button>
-        </div>
-      </form>
-    );
-  }
+  return (
+    <form
+      className="flex flex-col gap-2 border-2 rounded-lg p-4 border-slate-300 bg-white max-w-sm"
+      onSubmit={handleSubmit(onSubmit, onError)}
+    >
+      <Input
+        type="text"
+        name="name"
+        label="Name"
+        register={name}
+        error={errors.name}
+        needValidate={needValidate}
+      />
+      <Input
+        type="text"
+        name="surname"
+        label="Surname"
+        register={surname}
+        error={errors.surname}
+        needValidate={needValidate}
+      />
+      <Input
+        type="date"
+        name="date"
+        label="Date"
+        register={date}
+        error={errors.date}
+        errorMessage="Type date before now"
+        needValidate={needValidate}
+      />
+      <Input
+        type="file"
+        name="file"
+        label="Avatar"
+        register={file}
+        error={errors.file}
+        errorMessage="Add your avatar or choose file with correct extantion"
+        needValidate={needValidate}
+      />
+      <Select name="select" label="Country" register={country} values={countries} />
+
+      <Input
+        type="checkbox"
+        name="checkbox"
+        label="I agree with data processing"
+        register={dataProcessing}
+        error={errors.dataProcessing}
+        errorMessage="You must agree with data processing"
+        needValidate={needValidate}
+      />
+
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          data-testid="button-submit"
+          disabled={IsBbuttonDisabled()}
+          className="button"
+        >
+          Create card
+        </button>
+        <button type="button" onClick={resetForm} data-testid="button-reset" className="button">
+          Reset
+        </button>
+      </div>
+    </form>
+  );
 }
 
 export default Form;

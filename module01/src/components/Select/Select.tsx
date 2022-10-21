@@ -1,22 +1,24 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 import './Select.css';
 
 interface Props {
   name: string;
   label: string;
-  reference: React.RefObject<HTMLSelectElement>;
+  register: UseFormRegisterReturn;
   values: string[];
 }
 
 function Select(props: Props) {
-  const { name, label, reference, values } = props;
+  const { name, label, register, values } = props;
   return (
     <div className="input-block">
       <label htmlFor={name} className="label">
         {label}
       </label>
-      <select name={name} id={name} ref={reference}>
+      <select id={name} {...register}>
         {values.map((value) => {
           return (
             <option key={value} value={value}>

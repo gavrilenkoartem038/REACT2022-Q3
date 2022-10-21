@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Form from './Form';
@@ -41,14 +41,14 @@ describe('Form tests', () => {
     expect(inputDataProcessing).toBeChecked();
   });
 
-  it('should enable submit button on input "name" value change', () => {
+  it('should enable submit button on input "name" value change', async () => {
     render(<Form addCard={mockAddCard} />);
     const inputName = screen.getByTestId('name');
     const surnameBlock = screen.getByTestId('surname').parentElement;
     const button = screen.getByText(/Create card/i);
     userEvent.type(inputName, 'qwe');
     userEvent.click(button);
-    expect(button).toBeDisabled();
+    await waitFor(() => expect(button).toBeDisabled());
     expect(surnameBlock?.classList.contains('invalid')).toBe(true);
   });
 
