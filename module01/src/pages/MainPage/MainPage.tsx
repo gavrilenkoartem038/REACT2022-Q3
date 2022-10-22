@@ -32,8 +32,10 @@ class MainPage extends React.Component<Record<string, unknown>, State> {
     const url = `https://rickandmortyapi.com/api/character?name=${searchStr}`;
     fetch(url)
       .then((response) => response.json())
-      .then((data) => this.setState({ cards: data.results, isPending: false }))
-      .catch(() => this.setState({ isErrorRequest: true }));
+      .then((data) =>
+        this.setState({ cards: data.results, isPending: false, isErrorRequest: false })
+      )
+      .catch(() => this.setState({ cards: [], isErrorRequest: true, isPending: false }));
   }
 
   render() {
