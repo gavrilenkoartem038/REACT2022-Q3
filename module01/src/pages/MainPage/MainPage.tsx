@@ -8,6 +8,7 @@ import { ICard } from 'types/types';
 interface State {
   cards: ICard[];
   isPending: boolean;
+  isErrorRequest: boolean;
 }
 
 class MainPage extends React.Component<Record<string, unknown>, State> {
@@ -16,6 +17,7 @@ class MainPage extends React.Component<Record<string, unknown>, State> {
     this.state = {
       cards: [] as State['cards'],
       isPending: false,
+      isErrorRequest: false,
     };
     this.getData = this.getData.bind(this);
   }
@@ -30,15 +32,16 @@ class MainPage extends React.Component<Record<string, unknown>, State> {
     const url = `https://rickandmortyapi.com/api/character?name=${searchStr}`;
     fetch(url)
       .then((response) => response.json())
-      .then((data) => this.setState({ cards: data.results, isPending: false }));
+      .then((data) => this.setState({ cards: data.results, isPending: false }))
+      .catch(() => this.setState({ isErrorRequest: true }));
   }
 
   render() {
-    const { cards, isPending } = this.state;
+    const { cards, isPending, isErrorRequest } = this.state;
     return (
       <>
         <Search func={this.getData} />
-        {isPending ? <Loader /> : <CardList cards={cards} />}
+        {isPending ? <Loader /> : <CardList cards={cards} isErrorRequest={isErrorRequest} />}
       </>
     );
   }
