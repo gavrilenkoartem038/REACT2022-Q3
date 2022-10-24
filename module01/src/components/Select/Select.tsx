@@ -4,14 +4,14 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 import './Select.css';
 
-interface Props {
+export interface SelectProps {
   name: string;
   label: string;
   register: UseFormRegisterReturn;
   values: string[];
 }
 
-function Select(props: Props) {
+const Select = (props: SelectProps) => {
   const { name, label, register, values } = props;
   return (
     <div className="input-block">
@@ -29,6 +29,6 @@ function Select(props: Props) {
       </select>
     </div>
   );
-}
+};
 
 export default Select;

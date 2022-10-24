@@ -22,6 +22,7 @@
 .modal-content {
   display: flex;
   gap: 1rem;
+  position: relative;
   padding: 1rem;
   border: 2px solid rgb(203 213 225);
   border-radius: 0.5rem;
@@ -35,7 +36,41 @@
   min-width: 200px;
 }
 
-@media screen and (max-width: 657px) {
+.modal-close {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: 2px solid rgb(203 213 225);
+  border-radius: 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: 0.5s;
+  top: -36px;
+  right: -26px;
+}
+
+.modal-close:hover {
+  background-color: rgb(77, 100, 128);
+}
+
+.line {
+  position: absolute;
+  top: 13px;
+  left: 4px;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: white;
+  transform: rotate(45deg);
+}
+
+.line:first-child {
+  transform: rotate(135deg);
+}
+
+@media screen and (max-width: 696px) {
   .modal-content {
     width: 300px;
     flex-direction: column;
@@ -44,5 +79,9 @@
 
   .modal-content img {
     display: none;
+  }
+
+  .modal-close {
+    right: -7px;
   }
 }

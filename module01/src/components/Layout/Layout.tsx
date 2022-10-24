@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 import './Layout.css';
 
-function Layout() {
+const Layout = () => {
   return (
     <>
       <div className="bg-slate-500">
@@ -29,6 +29,6 @@ function Layout() {
       </div>
     </>
   );
-}
+};
 
 export default Layout;

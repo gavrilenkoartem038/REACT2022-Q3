@@ -9,7 +9,7 @@ import NotFoundPage from 'pages/NotFounPage';
 
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -20,6 +20,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

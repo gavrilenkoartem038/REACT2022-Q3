@@ -59,6 +59,7 @@
     "react/prefer-stateless-function": 0,
     "react/static-property-placement": 0,
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*{.,_}{test,spec}.{ts,tsx}"]}],
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
     "import/no-unresolved": [
       2,
       {

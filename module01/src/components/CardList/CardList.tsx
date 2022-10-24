@@ -5,20 +5,22 @@ import { ICard } from 'types/types';
 
 export interface Props {
   cards: ICard[];
+  isErrorRequest: boolean;
 }
 
-function CardList(props: Props) {
-  const filterCards = (cards: ICard[]) => {
-    if (cards && cards.length) {
+const CardList = ({ isErrorRequest, cards }: Props) => {
+  const filterCards = () => {
+    if (cards?.length) {
       return cards.map((card) => <Card card={card} key={card.id} />);
     }
-    return <div>Cards not found</div>;
+    return (
+      <div className="text-center">
+        {isErrorRequest ? 'Something went wrong. Please try again' : 'Cards not found'}
+      </div>
+    );
   };
-  const { cards } = props;
 
-  return (
-    <div className="container grid grid-cols-auto justify-evenly gap-8">{filterCards(cards)}</div>
-  );
-}
+  return <div className="container grid grid-cols-auto justify-evenly gap-8">{filterCards()}</div>;
+};
 
 export default CardList;

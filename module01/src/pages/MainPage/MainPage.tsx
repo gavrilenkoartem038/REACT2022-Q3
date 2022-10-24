@@ -4,9 +4,10 @@ import CardList from 'components/CardList/CardList';
 import Loader from 'components/Loader/Loader';
 import Search from 'components/Search/Search';
 
-function MainPage() {
+const MainPage = () => {
   const [cards, setCards] = useState([]);
   const [isPending, setIsPending] = useState(false);
+  const [isErrorRequest, setIsErrorRequest] = useState(false);
 
   const getData = (searchStr: string) => {
     setIsPending(true);
@@ -16,6 +17,12 @@ function MainPage() {
       .then((data) => {
         setIsPending(false);
         setCards(data.results);
+        setIsErrorRequest(false);
+      })
+      .catch(() => {
+        setIsPending(false);
+        setCards([]);
+        setIsErrorRequest(true);
       });
   };
 
@@ -27,9 +34,9 @@ function MainPage() {
   return (
     <>
       <Search func={getData} />
-      {isPending ? <Loader /> : <CardList cards={cards} />}
+      {isPending ? <Loader /> : <CardList cards={cards} isErrorRequest={isErrorRequest} />}
     </>
   );
-}
+};
 
 export default MainPage;

@@ -3,9 +3,9 @@ import React from 'react';
 
 import './Input.css';
 
-import { Props } from './Iput.types';
+import { InputProps } from './Iput.types';
 
-function Input(props: Props) {
+const Input = (props: InputProps) => {
   const { type, name, label, error, errorMessage, register, needValidate } = props;
   const getClassName = () => {
     let baseClass = 'input-block';
@@ -42,6 +42,6 @@ function Input(props: Props) {
       <div className="validation-field">{error && (error.message || errorMessage)}</div>
     </div>
   );
-}
+};
 
 export default Input;

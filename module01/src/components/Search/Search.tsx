@@ -6,10 +6,8 @@ interface Props {
   func: (el: string) => void;
 }
 
-function Search(props: Props) {
+const Search = ({ func }: Props) => {
   const [value, setValue] = useState(localStorage.getItem('search') || '');
-
-  const { func } = props;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -37,6 +35,6 @@ function Search(props: Props) {
       </form>
     </div>
   );
-}
+};
 
 export default Search;

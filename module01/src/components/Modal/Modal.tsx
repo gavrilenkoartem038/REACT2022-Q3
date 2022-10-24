@@ -6,17 +6,16 @@ import './Modal.css';
 
 interface Props {
   active: boolean;
-  setActive: (isActive: boolean) => void;
+  closeModal: () => void;
   card: ICard;
 }
 
-function Modal(props: Props) {
-  const { active, setActive, card } = props;
+const Modal = ({ active, closeModal, card }: Props) => {
   const { name, status, species, gender, origin, image } = card;
   return (
     <div
       className={active ? 'modal active' : 'modal'}
-      onClick={() => setActive(false)}
+      onClick={closeModal}
       aria-hidden="true"
       data-testid="modal"
     >
@@ -41,10 +40,14 @@ function Modal(props: Props) {
           <div>
             <span className="font-bold">Origin:</span> {origin.name}
           </div>
+          <button type="button" className="modal-close" onClick={closeModal}>
+            <div className="line" />
+            <div className="line" />
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Modal;
