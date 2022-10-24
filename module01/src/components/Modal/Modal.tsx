@@ -41,6 +41,10 @@ function Modal(props: Props) {
           <div>
             <span className="font-bold">Origin:</span> {origin.name}
           </div>
+          <button type="button" className="modal-close" onClick={() => setActive(false)}>
+            <div className="line" />
+            <div className="line" />
+          </button>
         </div>
       </div>
     </div>
