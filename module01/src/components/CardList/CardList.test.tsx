@@ -7,12 +7,12 @@ import CardList from './CardList';
 describe('Card component', () => {
   it('card from cardList data should be at the page', () => {
     render(<CardList cards={mockCardList} isErrorRequest={false} />);
-    expect(screen.getByText(/female/i)).toBeInTheDocument();
+    expect(screen.getByText(/brown/i)).toBeInTheDocument();
   });
 
   it('should render 3 cards', () => {
     render(<CardList cards={mockCardList} isErrorRequest={false} />);
-    expect(screen.getAllByText(/status/i).length).toBe(3);
+    expect(screen.getAllByText(/hair/i).length).toBe(3);
   });
 
   it('should render "not found message with empty list of curds"', () => {

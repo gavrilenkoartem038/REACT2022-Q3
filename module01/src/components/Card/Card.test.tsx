@@ -10,7 +10,7 @@ const mockCard = mockCardList[0];
 describe('Card component', () => {
   it('should render card', () => {
     render(<Card card={mockCard} />);
-    expect(screen.getByText(/humanoid/i)).toBeInTheDocument();
+    expect(screen.getByText(/brown/i)).toBeInTheDocument();
   });
 
   it('should open modal window on click card', () => {

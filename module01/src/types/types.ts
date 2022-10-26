@@ -1,22 +1,15 @@
 export interface ICard {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
+  _id: string;
+  birth: string;
+  death: string;
   gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
-  image: string;
-  episode: string[];
-  url: string;
-  created: string;
+  hair: string;
+  height: string;
+  name: string;
+  race: string;
+  realm: string;
+  spouse: string;
+  wikiUrl: string;
 }
 
 export type PersconCard = {

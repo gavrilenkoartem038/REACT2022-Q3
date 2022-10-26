@@ -11,12 +11,16 @@ function MainPage() {
 
   const getData = (searchStr: string) => {
     setIsPending(true);
-    const url = `https://rickandmortyapi.com/api/character?name=${searchStr}`;
-    fetch(url)
+    const url = `https://the-one-api.dev/v2/character?name=/${searchStr}/i&limit=20`;
+    fetch(url, {
+      headers: {
+        Authorization: 'Bearer AhcBdDNRNxMpvxbQVSHq',
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setIsPending(false);
-        setCards(data.results);
+        setCards(data.docs);
         setIsErrorRequest(false);
       })
       .catch(() => {

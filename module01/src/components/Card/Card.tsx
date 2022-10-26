@@ -11,7 +11,7 @@ interface Props {
 
 function Card(props: Props) {
   const { card } = props;
-  const { name, image } = card;
+  const { name, race, gender } = card;
   const [active, setActive] = useState(false);
 
   const setModalActive = (isActive: boolean) => {
@@ -26,8 +26,13 @@ function Card(props: Props) {
         aria-hidden="true"
         data-testid="card"
       >
-        <img src={image} alt={name} className="rounded-lg" />
         <div className="self-center text-lg font-bold">{name}</div>
+        <div>
+          <span className="font-bold">Race:</span> {race !== 'NaN' ? race : 'Unknown'}
+        </div>
+        <div>
+          <span className="font-bold">Gender:</span> {gender !== 'NaN' ? gender : 'Unknown'}
+        </div>
       </div>
       <Modal active={active} setActive={setModalActive} card={card} />
     </>

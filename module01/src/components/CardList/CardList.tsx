@@ -12,7 +12,8 @@ function CardList(props: Props) {
   const filterCards = (cards: ICard[]) => {
     const { isErrorRequest } = props;
     if (cards && cards.length) {
-      return cards.map((card) => <Card card={card} key={card.id} />);
+      // eslint-disable-next-line no-underscore-dangle
+      return cards.map((card) => <Card card={card} key={card._id} />);
     }
     return (
       <div className="text-center">

@@ -7,9 +7,10 @@ import { setupServer } from 'msw/node';
 import MainPage from './MainPage';
 
 const server = setupServer(
-  rest.get(`https://rickandmortyapi.com/api/character`, (req, res, ctx) => {
+  rest.get(`https://the-one-api.dev/v2/character`, (req, res, ctx) => {
     req.url.searchParams.get('name');
-    return res(ctx.status(200), ctx.json({ results: mockCardList }));
+    req.url.searchParams.get('limit');
+    return res(ctx.status(200), ctx.json({ docs: mockCardList }));
   })
 );
 beforeAll(() => server.listen());
@@ -24,7 +25,7 @@ describe('Main page tests', () => {
 
   it('should render cards on page', async () => {
     render(<MainPage />);
-    expect(await screen.findByText(/Humanoid/i)).toBeInTheDocument();
+    expect(await screen.findByText(/brown/i)).toBeInTheDocument();
   });
 
   it('should render expected count of cards on page', async () => {
