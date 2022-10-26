@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { Context } from 'store/store';
 
 import Form from 'components/Form/Form';
 import PersonCardList from 'components/PersonalCards/PersonCardList';
-import { PersconCard } from 'types/types';
 
 function FormPage() {
-  const [cards, setCards] = useState([] as PersconCard[]);
-
-  const addCard = (card: PersconCard) => {
-    setCards([...cards, card]);
-  };
+  const { state } = useContext(Context);
 
   return (
     <>
-      <Form addCard={addCard} />
-      <PersonCardList cards={cards} />
+      <Form />
+      <PersonCardList cards={state.formPage.personCards} />
     </>
   );
 }
