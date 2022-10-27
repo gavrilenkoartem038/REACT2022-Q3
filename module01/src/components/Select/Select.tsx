@@ -7,22 +7,24 @@ import './Select.css';
 interface Props {
   name: string;
   label: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   values: string[];
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 function Select(props: Props) {
-  const { name, label, register, values } = props;
+  const { name, label, register, values, value, onChange } = props;
   return (
     <div className="input-block">
       <label htmlFor={name} className="label">
         {label}
       </label>
-      <select id={name} {...register}>
-        {values.map((value) => {
+      <select name={name} value={value} id={name} {...register} onChange={onChange}>
+        {values.map((optionValue) => {
           return (
-            <option key={value} value={value}>
-              {value}
+            <option key={optionValue} value={optionValue}>
+              {optionValue}
             </option>
           );
         })}

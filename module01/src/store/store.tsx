@@ -1,7 +1,7 @@
 import React, { createContext, Dispatch, useReducer } from 'react';
 
-import formPageReducer from './reducers';
-import FormPageActions, { FormPage } from './types';
+import { formPageReducer, mainPageReducer } from './reducers';
+import { FormPage, FormPageActions, MainPage, MainPageActions } from './types';
 
 interface Props {
   children: React.ReactNode;
@@ -20,22 +20,35 @@ const initialState = {
     },
     needValidate: false,
   },
+  mainPage: {
+    cards: [],
+    searchOptions: {
+      sort: 'name',
+      order: 'asc',
+      limit: 20,
+    },
+  },
 };
 
 type InitialStateType = {
   formPage: FormPage;
+  mainPage: MainPage;
 };
 
 const Context = createContext<{
   state: InitialStateType;
-  dispatch: Dispatch<FormPageActions>;
+  dispatch: Dispatch<FormPageActions | MainPageActions>;
 }>({
   state: initialState,
   dispatch: () => null,
 });
 
-const Reducer = ({ formPage }: InitialStateType, action: FormPageActions) => ({
+const Reducer = (
+  { formPage, mainPage }: InitialStateType,
+  action: FormPageActions | MainPageActions
+) => ({
   formPage: formPageReducer(formPage, action as FormPageActions),
+  mainPage: mainPageReducer(mainPage, action as MainPageActions),
 });
 
 function Store({ children }: Props) {

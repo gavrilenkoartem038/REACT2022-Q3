@@ -57,6 +57,7 @@
     "jsx-a11y/anchor-is-valid": 0,
     "import/order": "off",
     "react/prefer-stateless-function": 0,
+    "react/require-default-props": "off",
     "react/static-property-placement": 0,
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*{.,_}{test,spec}.{ts,tsx}"]}],
     "import/no-unresolved": [
