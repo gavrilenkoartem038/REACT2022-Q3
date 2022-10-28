@@ -29,10 +29,10 @@ export function mainPageReducer(state: MainPage, action: MainPageActions) {
         ...state,
         searchOptions: action.payload,
       };
-    case ActionTypes.ChangeForm:
+    case ActionTypes.SetCards:
       return {
         ...state,
-        formFields: action.payload,
+        cards: action.payload,
       };
     case ActionTypes.ToggleSubmitButton:
       return {

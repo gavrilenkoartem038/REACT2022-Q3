@@ -4,6 +4,8 @@ import { ActionTypes } from 'store/types';
 
 import Select from 'components/Select/Select';
 
+import './SearchOptions.css';
+
 function SearchOptions() {
   const { state, dispatch } = useContext(Context);
   const { searchOptions } = state.mainPage;
@@ -17,7 +19,7 @@ function SearchOptions() {
   };
 
   return (
-    <div>
+    <div className="search-options">
       <Select
         name="sort"
         label="Sort by"
@@ -30,6 +32,13 @@ function SearchOptions() {
         label="Sort order"
         values={['asc', 'desc']}
         value={searchOptions.order}
+        onChange={changeSelect}
+      />
+      <Select
+        name="limit"
+        label="Limit per page"
+        values={['20', '30', '40', '50']}
+        value={searchOptions.limit}
         onChange={changeSelect}
       />
     </div>

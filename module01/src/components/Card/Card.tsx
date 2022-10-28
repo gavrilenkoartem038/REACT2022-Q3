@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import Modal from 'components/Modal/Modal';
 import { ICard } from 'types/types';
 
 import './Card.css';
@@ -11,31 +11,26 @@ interface Props {
 
 function Card(props: Props) {
   const { card } = props;
-  const { name, race, gender } = card;
-  const [active, setActive] = useState(false);
+  const { name, race, gender, _id } = card;
 
-  const setModalActive = (isActive: boolean) => {
-    setActive(isActive);
-  };
+  const navigate = useNavigate();
 
   return (
-    <>
-      <div
-        className="card flex flex-col p-4 gap-4 border-2 rounded-lg border-slate-300 bg-white"
-        onClick={() => setActive(true)}
-        aria-hidden="true"
-        data-testid="card"
-      >
-        <div className="self-center text-lg font-bold">{name}</div>
-        <div>
-          <span className="font-bold">Race:</span> {race !== 'NaN' ? race : 'Unknown'}
-        </div>
-        <div>
-          <span className="font-bold">Gender:</span> {gender !== 'NaN' ? gender : 'Unknown'}
-        </div>
+    <div
+      className="card flex flex-col p-4 gap-4 border-2 rounded-lg border-slate-300 bg-white"
+      onClick={() => navigate(`/cards/${_id}`)}
+      aria-hidden="true"
+      data-testid="card"
+    >
+      <div className="self-center text-lg font-bold">{name}</div>
+      <div>
+        <span className="font-bold">Race:</span> {!race || race === 'NaN' ? 'Unknown' : race}
       </div>
-      <Modal active={active} setActive={setModalActive} card={card} />
-    </>
+      <div>
+        <span className="font-bold">Gender:</span>{' '}
+        {!gender || gender === 'NaN' ? 'Unknown' : gender}
+      </div>
+    </div>
   );
 }
 

@@ -25,7 +25,7 @@ const initialState = {
     searchOptions: {
       sort: 'name',
       order: 'asc',
-      limit: 20,
+      limit: '20',
     },
   },
 };
