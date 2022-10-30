@@ -1,24 +1,30 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useContext } from 'react';
+import { Context } from 'store/store';
+import { ActionTypes } from 'store/types';
 
 import './Search.css';
 
 interface Props {
-  func: (el: string) => void;
+  func: () => void;
 }
 
 function Search(props: Props) {
-  const [value, setValue] = useState(localStorage.getItem('search') || '');
-
   const { func } = props;
+  const { state, dispatch } = useContext(Context);
+
+  const { searchString } = state.mainPage;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    dispatch({
+      type: ActionTypes.ChangeSearchString,
+      payload: event.target.value,
+    });
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    localStorage.setItem('search', value);
-    return func(value);
+    localStorage.setItem('search', searchString);
+    return func();
   };
 
   return (
@@ -26,7 +32,7 @@ function Search(props: Props) {
       <form onSubmit={onSubmit} className="form">
         <input
           type="text"
-          value={value}
+          value={searchString}
           onChange={onChange}
           placeholder="Search..."
           className="p-2 w-8/12 search"

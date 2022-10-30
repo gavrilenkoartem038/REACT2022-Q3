@@ -29,6 +29,7 @@ const initialState = {
       page: '1',
       pages: '0',
     },
+    searchString: localStorage.getItem('search') || '',
   },
 };
 

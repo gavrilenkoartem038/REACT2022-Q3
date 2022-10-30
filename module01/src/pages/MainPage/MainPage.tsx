@@ -16,11 +16,11 @@ function MainPage() {
 
   const { state, dispatch } = useContext(Context);
 
-  const { searchData } = state.mainPage;
+  const { searchData, searchString } = state.mainPage;
 
-  const getData = async (searchStr: string) => {
+  const getData = async () => {
     setIsPending(true);
-    const url = `${baseURL}?name=/${searchStr}/i&sort=${searchData.sort}:${searchData.order}&limit=${searchData.limit}&page=${searchData.page}`;
+    const url = `${baseURL}?name=/${searchString}/i&sort=${searchData.sort}:${searchData.order}&limit=${searchData.limit}&page=${searchData.page}`;
     try {
       const response = await fetch(url, {
         headers: {
@@ -52,8 +52,7 @@ function MainPage() {
   };
 
   useEffect(() => {
-    const search: string = localStorage.getItem('search') || '';
-    getData(search);
+    getData();
   }, [searchData.sort, searchData.order, searchData.limit, searchData.page]);
 
   return (

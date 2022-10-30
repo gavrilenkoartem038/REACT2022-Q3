@@ -7,6 +7,7 @@ export enum ActionTypes {
   ChangeForm = 'CHANGE_FORM_VALUES',
   ToggleSubmitButton = 'TOGGLE_SUBMIT_BUTTON',
   ChangeSearchData = 'CHANGE_SEARCH_DATA',
+  ChangeSearchString = 'CHANGE_SEARCH_STRING',
 }
 
 interface SearchData {
@@ -20,6 +21,7 @@ interface SearchData {
 
 export interface MainPage {
   searchData: SearchData;
+  searchString: string;
 }
 
 export type FormPageActions =
@@ -27,7 +29,9 @@ export type FormPageActions =
   | { type: ActionTypes.ChangeForm; payload: FormFields }
   | { type: ActionTypes.ToggleSubmitButton; payload: boolean };
 
-export type MainPageActions = { type: ActionTypes.ChangeSearchData; payload: SearchData };
+export type MainPageActions =
+  | { type: ActionTypes.ChangeSearchData; payload: SearchData }
+  | { type: ActionTypes.ChangeSearchString; payload: string };
 
 export interface FormPage {
   personCards: PersconCard[];

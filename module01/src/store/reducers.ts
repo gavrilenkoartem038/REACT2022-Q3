@@ -29,6 +29,11 @@ export function mainPageReducer(state: MainPage, action: MainPageActions) {
         ...state,
         searchData: action.payload,
       };
+    case ActionTypes.ChangeSearchString:
+      return {
+        ...state,
+        searchString: action.payload,
+      };
     default:
       return state;
   }
