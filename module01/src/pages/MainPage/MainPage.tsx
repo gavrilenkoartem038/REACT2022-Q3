@@ -4,6 +4,7 @@ import { ActionTypes } from 'store/types';
 
 import CardList from 'components/CardList/CardList';
 import Loader from 'components/Loader/Loader';
+import Pagination from 'components/Pagination/Pagination';
 import Search from 'components/Search/Search';
 import SearchOptions from 'components/SearchOptions/SearchOptions';
 
@@ -15,11 +16,11 @@ function MainPage() {
 
   const { state, dispatch } = useContext(Context);
 
-  const { searchOptions } = state.mainPage;
+  const { searchData } = state.mainPage;
 
   const getData = async (searchStr: string) => {
     setIsPending(true);
-    const url = `${baseURL}?name=/${searchStr}/i&sort=${searchOptions.sort}:${searchOptions.order}&limit=${searchOptions.limit}`;
+    const url = `${baseURL}?name=/${searchStr}/i&sort=${searchData.sort}:${searchData.order}&limit=${searchData.limit}&page=${searchData.page}`;
     try {
       const response = await fetch(url, {
         headers: {
@@ -28,16 +29,23 @@ function MainPage() {
       });
       const data = await response.json();
       setIsPending(false);
-      dispatch({
-        type: ActionTypes.SetCards,
-        payload: data.docs,
-      });
+      if (data.pages < +searchData.page) {
+        dispatch({
+          type: ActionTypes.ChangeSearchData,
+          payload: { ...searchData, page: `${data.pages}` },
+        });
+      } else {
+        dispatch({
+          type: ActionTypes.ChangeSearchData,
+          payload: { ...searchData, cards: data.docs, pages: data.pages },
+        });
+      }
       setIsErrorRequest(false);
     } catch {
       setIsPending(false);
       dispatch({
-        type: ActionTypes.SetCards,
-        payload: [],
+        type: ActionTypes.ChangeSearchData,
+        payload: { ...searchData, cards: [] },
       });
       setIsErrorRequest(true);
     }
@@ -46,7 +54,7 @@ function MainPage() {
   useEffect(() => {
     const search: string = localStorage.getItem('search') || '';
     getData(search);
-  }, [searchOptions.sort, searchOptions.order, searchOptions.limit]);
+  }, [searchData.sort, searchData.order, searchData.limit, searchData.page]);
 
   return (
     <>
@@ -55,7 +63,10 @@ function MainPage() {
       {isPending ? (
         <Loader />
       ) : (
-        <CardList cards={state.mainPage.cards} isErrorRequest={isErrorRequest} />
+        <>
+          <Pagination />
+          <CardList cards={searchData.cards} isErrorRequest={isErrorRequest} />
+        </>
       )}
     </>
   );

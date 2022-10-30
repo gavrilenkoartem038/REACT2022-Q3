@@ -8,13 +8,13 @@ import './SearchOptions.css';
 
 function SearchOptions() {
   const { state, dispatch } = useContext(Context);
-  const { searchOptions } = state.mainPage;
+  const { searchData } = state.mainPage;
 
   const changeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target;
     dispatch({
-      type: ActionTypes.ChangeSelectValue,
-      payload: { ...searchOptions, [name]: value },
+      type: ActionTypes.ChangeSearchData,
+      payload: { ...searchData, [name]: value },
     });
   };
 
@@ -24,21 +24,21 @@ function SearchOptions() {
         name="sort"
         label="Sort by"
         values={['name', 'race', 'gender']}
-        value={searchOptions.sort}
+        value={searchData.sort}
         onChange={changeSelect}
       />
       <Select
         name="order"
         label="Sort order"
         values={['asc', 'desc']}
-        value={searchOptions.order}
+        value={searchData.order}
         onChange={changeSelect}
       />
       <Select
         name="limit"
         label="Limit per page"
         values={['20', '30', '40', '50']}
-        value={searchOptions.limit}
+        value={searchData.limit}
         onChange={changeSelect}
       />
     </div>

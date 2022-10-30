@@ -12,7 +12,7 @@ function Modal() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const currentCard = state.mainPage.cards.find((el) => el._id === id);
+  const currentCard = state.mainPage.searchData.cards.find((el) => el._id === id);
 
   useEffect(() => {
     if (!currentCard) {

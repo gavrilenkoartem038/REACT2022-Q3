@@ -24,20 +24,10 @@ export function formPageReducer(state: FormPage, action: FormPageActions) {
 
 export function mainPageReducer(state: MainPage, action: MainPageActions) {
   switch (action.type) {
-    case ActionTypes.ChangeSelectValue:
+    case ActionTypes.ChangeSearchData:
       return {
         ...state,
-        searchOptions: action.payload,
-      };
-    case ActionTypes.SetCards:
-      return {
-        ...state,
-        cards: action.payload,
-      };
-    case ActionTypes.ToggleSubmitButton:
-      return {
-        ...state,
-        needValidate: action.payload,
+        searchData: action.payload,
       };
     default:
       return state;

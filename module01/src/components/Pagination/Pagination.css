@@ -1,0 +1,19 @@
+.page-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding-bottom: 1rem;
+}
+
+.page-button {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: rgb(61, 71, 85);
+  color: white;
+}
+
+.page-button.active {
+  background-color: blue;
+  font-weight: bold;
+}

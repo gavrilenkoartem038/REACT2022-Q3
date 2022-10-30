@@ -6,19 +6,20 @@ export enum ActionTypes {
   AddCard = 'ADD_FORM_CARD',
   ChangeForm = 'CHANGE_FORM_VALUES',
   ToggleSubmitButton = 'TOGGLE_SUBMIT_BUTTON',
-  ChangeSelectValue = 'CHANGE_SELECT_BUTTON',
-  SetCards = 'SET_CARDS',
+  ChangeSearchData = 'CHANGE_SEARCH_DATA',
 }
 
-interface Options {
+interface SearchData {
+  cards: ICard[];
   sort: string;
   order: string;
   limit: string;
+  page: string;
+  pages: string;
 }
 
 export interface MainPage {
-  cards: ICard[];
-  searchOptions: Options;
+  searchData: SearchData;
 }
 
 export type FormPageActions =
@@ -26,10 +27,7 @@ export type FormPageActions =
   | { type: ActionTypes.ChangeForm; payload: FormFields }
   | { type: ActionTypes.ToggleSubmitButton; payload: boolean };
 
-export type MainPageActions =
-  | { type: ActionTypes.ChangeSelectValue; payload: Options }
-  | { type: ActionTypes.SetCards; payload: ICard[] }
-  | { type: ActionTypes.ToggleSubmitButton; payload: boolean };
+export type MainPageActions = { type: ActionTypes.ChangeSearchData; payload: SearchData };
 
 export interface FormPage {
   personCards: PersconCard[];

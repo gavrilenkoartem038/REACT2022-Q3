@@ -8,7 +8,7 @@ function Layout() {
     <>
       <div className="bg-slate-500">
         <header className="header container mx-auto">
-          <div className="text-4xl text-white">Rick and Morty</div>
+          <div className="text-4xl text-white">The Lord of the Ring</div>
           <div className="flex gap-2">
             <NavLink to="/" end className="nav-link">
               Home

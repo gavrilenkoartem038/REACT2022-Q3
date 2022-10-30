@@ -21,11 +21,13 @@ const initialState = {
     needValidate: false,
   },
   mainPage: {
-    cards: [],
-    searchOptions: {
+    searchData: {
+      cards: [],
       sort: 'name',
       order: 'asc',
       limit: '20',
+      page: '1',
+      pages: '0',
     },
   },
 };
