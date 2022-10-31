@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Store } from 'store/store';
 
 import Form from './Form';
 
@@ -40,17 +41,6 @@ describe('Form tests', () => {
     expect(inputDataProcessing).toBeChecked();
   });
 
-  // it('should enable submit button on input "name" value change', async () => {
-  //   render(<Form />);
-  //   const inputName = screen.getByTestId('name');
-  //   const surnameBlock = screen.getByTestId('surname').parentElement;
-  //   const button = screen.getByText(/Create card/i);
-  //   userEvent.type(inputName, 'qwe');
-  //   userEvent.click(button);
-  //   await waitFor(() => expect(button).toBeDisabled());
-  //   expect(surnameBlock?.classList.contains('invalid')).toBe(true);
-  // });
-
   it('should set invalid input classes on input invalid values', () => {
     render(<Form />);
     const inputName = screen.getByTestId('name');
@@ -59,11 +49,17 @@ describe('Form tests', () => {
   });
 
   it('should clear input values on reset button click', () => {
-    render(<Form />);
+    render(
+      <Store>
+        <Form />
+      </Store>
+    );
     const inputName = screen.getByTestId('name');
-    const inputSuname = screen.getByTestId('name');
-    userEvent.type(inputSuname, 'qwe');
+    const inputSuname = screen.getByTestId('surname');
     userEvent.type(inputName, 'qwerew');
+    userEvent.type(inputSuname, 'qwe');
+    expect(inputName).toHaveValue('qwerew');
+    expect(inputSuname).toHaveValue('qwe');
     userEvent.click(screen.getByText(/reset/i));
     expect(inputName).toHaveValue('');
     expect(inputSuname).toHaveValue('');

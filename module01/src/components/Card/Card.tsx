@@ -18,7 +18,7 @@ function Card(props: Props) {
   return (
     <div
       className="card flex flex-col p-4 gap-4 border-2 rounded-lg border-slate-300 bg-white"
-      onClick={() => navigate(`/cards/${_id}`)}
+      onClick={async () => navigate(`/cards/${_id}`)}
       aria-hidden="true"
       data-testid="card"
     >

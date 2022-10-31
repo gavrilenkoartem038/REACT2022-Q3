@@ -26,6 +26,7 @@ function SearchOptions() {
         values={['name', 'race', 'gender']}
         value={searchData.sort}
         onChange={changeSelect}
+        testId="sort"
       />
       <Select
         name="order"

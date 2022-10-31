@@ -28,11 +28,11 @@ export const mockCardList = [
   {
     birth: 'TA 2879',
     death: 'Unknown (Departed to ,Aman ,FO 120,)',
-    gender: 'Male',
+    gender: '',
     hair: 'Auburn',
     height: '',
     name: 'Gimli',
-    race: 'Dwarf',
+    race: '',
     realm: '',
     spouse: '',
     wikiUrl: 'http://lotr.wikia.com//wiki/Gimli',

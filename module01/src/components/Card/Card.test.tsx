@@ -3,10 +3,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockCardList } from 'mocks/mockData';
+import { Store } from 'store/store';
 
 import Card from './Card';
 
 const mockCard = mockCardList[0];
+const mockCardWithEmptyFields = mockCardList[2];
 
 describe('Card component', () => {
   it('should render card', () => {
@@ -18,15 +20,27 @@ describe('Card component', () => {
     expect(screen.getByText(/frodo/i)).toBeInTheDocument();
   });
 
-  // it('should open modal page on click card', () => {
+  it('should render card with "Unknown" value of fields race and gender if that fields empty', () => {
+    render(
+      <BrowserRouter>
+        <Card card={mockCardWithEmptyFields} />
+      </BrowserRouter>
+    );
+    expect(screen.getAllByText(/Unknown/i)).toHaveLength(2);
+    screen.debug();
+  });
+
+  // it('should open modal page on click card', async () => {
   //   render(
-  //     <BrowserRouter>
-  //       <Card card={mockCard} />
-  //     </BrowserRouter>
+  //     <Store>
+  //       <BrowserRouter>
+  //         <Card card={mockCard} />
+  //       </BrowserRouter>
+  //     </Store>
   //   );
   //   const card = screen.getByTestId('card');
   //   userEvent.click(card);
-  //   expect(screen.getByText(/brown/i)).toBeInTheDocument();
+  //   expect(await screen.findByText(/brown/i)).toBeInTheDocument();
   // });
 
   // it('should close modal window on click screen', () => {

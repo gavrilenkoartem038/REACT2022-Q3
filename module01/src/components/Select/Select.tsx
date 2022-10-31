@@ -11,16 +11,24 @@ interface Props {
   values: string[];
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  testId?: string;
 }
 
 function Select(props: Props) {
-  const { name, label, register, values, value, onChange } = props;
+  const { name, label, register, values, value, onChange, testId } = props;
   return (
     <div className="input-block">
       <label htmlFor={name} className="label">
         {label}
       </label>
-      <select name={name} value={value} id={name} {...register} onChange={onChange}>
+      <select
+        name={name}
+        value={value}
+        id={name}
+        {...register}
+        onChange={onChange}
+        data-testid={testId}
+      >
         {values.map((optionValue) => {
           return (
             <option key={optionValue} value={optionValue}>

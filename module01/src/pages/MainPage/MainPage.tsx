@@ -37,7 +37,7 @@ function MainPage() {
       } else {
         dispatch({
           type: ActionTypes.ChangeSearchData,
-          payload: { ...searchData, cards: data.docs, pages: data.pages },
+          payload: { ...searchData, cards: data.docs, pages: `${data.pages}` },
         });
       }
       setIsErrorRequest(false);

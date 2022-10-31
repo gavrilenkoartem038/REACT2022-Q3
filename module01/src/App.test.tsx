@@ -3,9 +3,10 @@ import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from 'App';
+import { Store } from 'store/store';
 
 describe('roter and render pages', () => {
-  test('should renders main page', () => {
+  it('should renders main page', () => {
     render(
       <BrowserRouter>
         <App />
@@ -14,7 +15,7 @@ describe('roter and render pages', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
-  test('should go to about page', () => {
+  it('should go to about page', () => {
     render(
       <BrowserRouter>
         <App />
@@ -31,5 +32,22 @@ describe('roter and render pages', () => {
       </MemoryRouter>
     );
     expect(screen.getByText(/404 page/i)).toBeInTheDocument();
+  });
+
+  it('should save input values on change pages', () => {
+    render(
+      <BrowserRouter>
+        <Store>
+          <App />
+        </Store>
+      </BrowserRouter>
+    );
+    userEvent.click(screen.getByText(/Forms/i));
+    const inputName = screen.getByTestId('name');
+    userEvent.type(inputName, 'qwerew');
+    expect(inputName).toHaveValue('qwerew');
+    userEvent.click(screen.getByText(/About us/i));
+    userEvent.click(screen.getByText(/Forms/i));
+    expect(inputName).toHaveValue('qwerew');
   });
 });
