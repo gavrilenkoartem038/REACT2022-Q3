@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
-import { Context } from 'store/store';
+import React from 'react';
+import { useAppSelector } from 'store/store';
 
 import Form from 'components/Form/Form';
 import PersonCardList from 'components/PersonalCards/PersonCardList';
 
 function FormPage() {
-  const { state } = useContext(Context);
+  const { personCards } = useAppSelector((state) => state.formPage);
 
   return (
     <>
       <Form />
-      <PersonCardList cards={state.formPage.personCards} />
+      <PersonCardList cards={personCards} />
     </>
   );
 }

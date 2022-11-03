@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { mockCardList } from 'mocks/mockData';
-import { Store } from 'store/store';
 
 import Card from './Card';
 

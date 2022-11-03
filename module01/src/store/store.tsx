@@ -1,64 +1,20 @@
-import React, { createContext, Dispatch, useReducer } from 'react';
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 
-import { formPageReducer, mainPageReducer } from './reducers';
-import { FormPage, FormPageActions, MainPage, MainPageActions } from './types';
+import formPageReducer from './formPageSlice';
+import mainPageReducer from './mainPageSlice';
+import { FormPage, MainPage } from './types';
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const initialState = {
-  formPage: {
-    personCards: [],
-    formFields: {
-      name: '',
-      surname: '',
-      date: '',
-      country: 'BY',
-      file: {} as FileList,
-      dataProcessing: false,
-    },
-    needValidate: false,
+export default configureStore({
+  reducer: {
+    mainPage: mainPageReducer,
+    formPage: formPageReducer,
   },
-  mainPage: {
-    searchData: {
-      cards: [],
-      sort: 'name',
-      order: 'asc',
-      limit: '20',
-      page: '1',
-      pages: '0',
-    },
-    searchString: localStorage.getItem('search') || '',
-  },
-};
+});
 
-type InitialStateType = {
+export type InitialStateType = {
   formPage: FormPage;
   mainPage: MainPage;
 };
 
-const Context = createContext<{
-  state: InitialStateType;
-  dispatch: Dispatch<FormPageActions | MainPageActions>;
-}>({
-  state: initialState,
-  dispatch: () => null,
-});
-
-const Reducer = (
-  { formPage, mainPage }: InitialStateType,
-  action: FormPageActions | MainPageActions
-) => ({
-  formPage: formPageReducer(formPage, action as FormPageActions),
-  mainPage: mainPageReducer(mainPage, action as MainPageActions),
-});
-
-function Store({ children }: Props) {
-  const [state, dispatch] = useReducer(Reducer, initialState);
-
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
-}
-
-export { Context, Store };
+export const useAppSelector: TypedUseSelectorHook<InitialStateType> = useSelector;

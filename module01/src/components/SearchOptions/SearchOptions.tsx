@@ -1,21 +1,19 @@
-import React, { useContext } from 'react';
-import { Context } from 'store/store';
-import { ActionTypes } from 'store/types';
+import { useAppSelector } from 'store/store';
 
 import Select from 'components/Select/Select';
 
 import './SearchOptions.css';
+import { useDispatch } from 'react-redux';
+import React from 'react';
+import { changeSearchData } from 'store/mainPageSlice';
 
 function SearchOptions() {
-  const { state, dispatch } = useContext(Context);
-  const { searchData } = state.mainPage;
+  const searchData = useAppSelector((state) => state.mainPage.searchData);
+  const dispatch = useDispatch()
 
   const changeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target;
-    dispatch({
-      type: ActionTypes.ChangeSearchData,
-      payload: { ...searchData, [name]: value },
-    });
+    dispatch(changeSearchData({ ...searchData, [name]: value }));
   };
 
   return (

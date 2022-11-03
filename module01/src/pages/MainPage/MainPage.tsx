@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Context } from 'store/store';
-import { ActionTypes } from 'store/types';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeSearchData } from 'store/mainPageSlice';
+import { useAppSelector } from 'store/store';
 
 import CardList from 'components/CardList/CardList';
 import Loader from 'components/Loader/Loader';
@@ -14,9 +15,8 @@ function MainPage() {
   const [isPending, setIsPending] = useState(false);
   const [isErrorRequest, setIsErrorRequest] = useState(false);
 
-  const { state, dispatch } = useContext(Context);
-
-  const { searchData, searchString } = state.mainPage;
+  const { searchData, searchString } = useAppSelector((state) => state.mainPage);
+  const dispatch = useDispatch();
 
   const getData = async () => {
     setIsPending(true);
@@ -30,23 +30,14 @@ function MainPage() {
       const data = await response.json();
       setIsPending(false);
       if (data.pages < +searchData.page) {
-        dispatch({
-          type: ActionTypes.ChangeSearchData,
-          payload: { ...searchData, page: `${data.pages}` },
-        });
+        dispatch(changeSearchData({ ...searchData, page: `${data.pages}` }));
       } else {
-        dispatch({
-          type: ActionTypes.ChangeSearchData,
-          payload: { ...searchData, cards: data.docs, pages: `${data.pages}` },
-        });
+        dispatch(changeSearchData({ ...searchData, cards: data.docs, pages: `${data.pages}` }));
       }
       setIsErrorRequest(false);
     } catch {
       setIsPending(false);
-      dispatch({
-        type: ActionTypes.ChangeSearchData,
-        payload: { ...searchData, cards: [] },
-      });
+      dispatch(changeSearchData({ ...searchData, cards: [] }));
       setIsErrorRequest(true);
     }
   };

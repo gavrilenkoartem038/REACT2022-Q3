@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
-import { Context } from 'store/store';
-import { ActionTypes } from 'store/types';
+import { useDispatch } from 'react-redux';
+import { addCard, changeForm, toggleSubmitButtton } from 'store/formPageSlice';
+import { useAppSelector } from 'store/store';
 
 import Input from '../Input/Input';
 import Select from '../Select/Select';
@@ -13,7 +14,8 @@ import { FormFields } from './Form.types';
 const countries = ['BY', 'UA', 'GE', 'PL', 'LT'];
 
 function Form() {
-  const { state, dispatch } = useContext(Context);
+  const { formFields, needValidate } = useAppSelector((state) => state.formPage);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -23,29 +25,19 @@ function Form() {
     formState: { errors, isDirty },
   } = useForm<FormFields>({
     defaultValues: {
-      name: state.formPage.formFields.name,
-      surname: state.formPage.formFields.surname,
-      date: state.formPage.formFields.date,
-      country: state.formPage.formFields.country,
+      name: formFields.name,
+      surname: formFields.surname,
+      date: formFields.date,
+      country: formFields.country,
       file: {} as FileList,
-      dataProcessing: state.formPage.formFields.dataProcessing,
+      dataProcessing: formFields.dataProcessing,
     },
   });
 
   useEffect(() => {
     return () => {
       const { name, surname, date, country, dataProcessing } = getValues();
-      dispatch({
-        type: ActionTypes.ChangeForm,
-        payload: {
-          name,
-          surname,
-          date,
-          country,
-          file: {} as FileList,
-          dataProcessing,
-        },
-      });
+      dispatch(changeForm({ name, surname, date, country, file: {} as FileList, dataProcessing }));
     };
   }, [dispatch, getValues]);
 
@@ -58,7 +50,7 @@ function Form() {
       file: {} as FileList,
       dataProcessing: false,
     });
-    dispatch({ type: ActionTypes.ToggleSubmitButton, payload: false });
+    dispatch(toggleSubmitButtton(false));
   };
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
@@ -69,12 +61,12 @@ function Form() {
       country: data.country,
       date: data.date,
     };
-    dispatch({ type: ActionTypes.AddCard, payload: card });
+    dispatch(addCard(card));
     resetForm();
   };
 
   const onError: SubmitErrorHandler<FormFields> = () => {
-    dispatch({ type: ActionTypes.ToggleSubmitButton, payload: true });
+    dispatch(toggleSubmitButtton(true));
   };
 
   const name = register('name', {
@@ -122,8 +114,8 @@ function Form() {
 
   const IsBbuttonDisabled = (): boolean => {
     if (
-      (isDirty && !state.formPage.needValidate) ||
-      (state.formPage.needValidate &&
+      (isDirty && !needValidate) ||
+      (needValidate &&
         !errors.name &&
         !errors.surname &&
         !errors.date &&
@@ -147,7 +139,7 @@ function Form() {
         label="Name"
         register={name}
         error={errors.name}
-        needValidate={state.formPage.needValidate}
+        needValidate={needValidate}
       />
       <Input
         type="text"
@@ -155,7 +147,7 @@ function Form() {
         label="Surname"
         register={surname}
         error={errors.surname}
-        needValidate={state.formPage.needValidate}
+        needValidate={needValidate}
       />
       <Input
         type="date"
@@ -164,7 +156,7 @@ function Form() {
         register={date}
         error={errors.date}
         errorMessage="Type date before now"
-        needValidate={state.formPage.needValidate}
+        needValidate={needValidate}
       />
       <Input
         type="file"
@@ -173,7 +165,7 @@ function Form() {
         register={file}
         error={errors.file}
         errorMessage="Add your avatar or choose file with correct extantion"
-        needValidate={state.formPage.needValidate}
+        needValidate={needValidate}
       />
       <Select name="select" label="Country" register={country} values={countries} />
 
@@ -184,7 +176,7 @@ function Form() {
         register={dataProcessing}
         error={errors.dataProcessing}
         errorMessage="You must agree with data processing"
-        needValidate={state.formPage.needValidate}
+        needValidate={needValidate}
       />
 
       <div className="flex gap-2">

@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FormEvent, useContext } from 'react';
-import { Context } from 'store/store';
+import { useDispatch } from 'react-redux';
+import { changeSearchString } from 'store/mainPageSlice';
+import { useAppSelector } from 'store/store';
 import { ActionTypes } from 'store/types';
 
 import './Search.css';
@@ -10,15 +12,11 @@ interface Props {
 
 function Search(props: Props) {
   const { func } = props;
-  const { state, dispatch } = useContext(Context);
-
-  const { searchString } = state.mainPage;
+  const searchString = useAppSelector((state) => state.mainPage.searchString);
+  const dispatch = useDispatch();
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: ActionTypes.ChangeSearchString,
-      payload: event.target.value,
-    });
+    dispatch(changeSearchString(event.target.value));
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {

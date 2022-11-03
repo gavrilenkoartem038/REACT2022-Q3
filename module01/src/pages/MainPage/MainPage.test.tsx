@@ -1,10 +1,11 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { mockCardList } from 'mocks/mockData';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { Store } from 'store/store';
+import store from 'store/store';
 
 import MainPage from './MainPage';
 
@@ -23,28 +24,32 @@ afterAll(() => server.close());
 
 describe('Main page tests', () => {
   it('should render search input', () => {
-    render(<MainPage />);
+    render(
+      <Provider store={store}>
+        <MainPage />
+      </Provider>
+    );
     expect(screen.getByPlaceholderText(/search.../i)).toBeInTheDocument();
   });
 
   it('should render cards on page', async () => {
     render(
-      <Store>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Provider store={store}>
           <MainPage />
-        </BrowserRouter>
-      </Store>
+        </Provider>
+      </BrowserRouter>
     );
     expect(await screen.findByText(/frodo/i)).toBeInTheDocument();
   });
 
   it('should render expected count of cards on page', async () => {
     render(
-      <Store>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Provider store={store}>
           <MainPage />
-        </BrowserRouter>
-      </Store>
+        </Provider>
+      </BrowserRouter>
     );
     expect((await screen.findAllByTestId('card')).length).toEqual(3);
   });

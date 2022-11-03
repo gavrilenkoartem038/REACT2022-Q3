@@ -10,7 +10,7 @@ export enum ActionTypes {
   ChangeSearchString = 'CHANGE_SEARCH_STRING',
 }
 
-interface SearchData {
+export interface SearchData {
   cards: ICard[];
   sort: string;
   order: string;

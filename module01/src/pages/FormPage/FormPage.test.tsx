@@ -1,8 +1,9 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Store } from 'store/store';
+import store from 'store/store';
 
 import FormPage from './FormPage';
 
@@ -10,16 +11,20 @@ describe('Form page tests', () => {
   global.URL.createObjectURL = jest.fn();
 
   it('should render form page without cards ', () => {
-    render(<FormPage />);
+    render(
+      <Provider store={store}>
+        <FormPage />
+      </Provider>
+    );
     const cardsElement = screen.queryByTestId('person-card');
     expect(cardsElement).toBeNull();
   });
 
   it('should create card on input correct values', async () => {
     render(
-      <Store>
+      <Provider store={store}>
         <FormPage />
-      </Store>
+      </Provider>
     );
 
     const inputName = screen.getByTestId('name');
@@ -50,9 +55,9 @@ describe('Form page tests', () => {
 
   it('should disable submit button on input incorrect form values', async () => {
     render(
-      <Store>
+      <Provider store={store}>
         <FormPage />
-      </Store>
+      </Provider>
     );
 
     const inputName = screen.getByTestId('name');

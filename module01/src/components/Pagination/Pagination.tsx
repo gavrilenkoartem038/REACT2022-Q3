@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
-import { Context } from 'store/store';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { changeSearchData } from 'store/mainPageSlice';
+import { useAppSelector } from 'store/store';
 import { ActionTypes } from 'store/types';
 
 import './Pagination.css';
 
 function Pagination() {
-  const { state, dispatch } = useContext(Context);
-  const { searchData } = state.mainPage;
+  const searchData = useAppSelector((state) => state.mainPage.searchData);
+  const dispatch = useDispatch()
 
   return (
     <div>
@@ -18,10 +20,7 @@ function Pagination() {
               className={searchData.page === `${el}` ? 'page-button active' : 'page-button'}
               key={el}
               onClick={() => {
-                dispatch({
-                  type: ActionTypes.ChangeSearchData,
-                  payload: { ...searchData, page: `${el}` },
-                });
+                dispatch(changeSearchData({ ...searchData, page: `${el}` }));
               }}
             >
               {el}

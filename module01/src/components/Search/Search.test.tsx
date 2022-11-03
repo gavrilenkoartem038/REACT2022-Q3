@@ -1,8 +1,10 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from 'App';
+import store from 'store/store';
 
 import Search from './Search';
 
@@ -47,21 +49,31 @@ describe('Search', () => {
   global.localStorage = new LocalStorageMock();
 
   it('should render seach-bar', () => {
-    render(<Search func={onSubmit} />);
+    render(
+      <Provider store={store}>
+        <Search func={onSubmit} />
+      </Provider>
+    );
     expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
   });
 
   it('onChange function should be called the required number of times', () => {
-    render(<Search func={onSubmit} />);
+    render(
+      <Provider store={store}>
+        <Search func={onSubmit} />
+      </Provider>
+    );
     userEvent.click(screen.getByText(/search/i));
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
   it('should save "search" value to localStorage', () => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     const search = screen.getByPlaceholderText(/search/i) as HTMLInputElement;
     const about = screen.getByText(/about/i);

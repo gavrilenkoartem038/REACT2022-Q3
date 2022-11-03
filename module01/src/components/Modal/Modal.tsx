@@ -1,18 +1,18 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Context } from 'store/store';
+import { useAppSelector } from 'store/store';
 
 import { ICard } from 'types/types';
 
 import './Modal.css';
 
 function Modal() {
-  const { state } = useContext(Context);
+  const cards = useAppSelector((state) => state.mainPage.searchData.cards);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const currentCard = state.mainPage.searchData.cards.find((el) => el._id === id);
+  const currentCard = cards.find((el) => el._id === id);
 
   useEffect(() => {
     if (!currentCard) {

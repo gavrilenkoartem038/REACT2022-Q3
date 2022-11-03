@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Store } from 'store/store';
 
 import Layout from 'components/Layout/Layout';
 import Modal from 'components/Modal/Modal';
@@ -13,7 +12,6 @@ import './App.css';
 
 function App() {
   return (
-    <Store>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
@@ -23,7 +21,6 @@ function App() {
           <Route path="/cards/:id" element={<Modal />} />
         </Route>
       </Routes>
-    </Store>
   );
 }
 
