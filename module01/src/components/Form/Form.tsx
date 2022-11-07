@@ -52,8 +52,8 @@ class Form extends React.Component<Props, State> {
     const { name } = e.target;
     const { isFirstTry } = this.state;
     const inputImg = this.fileInput.current as HTMLInputElement;
-    const isCorrectFileInput = name === 'file' && inputImg.files && inputImg.files.length !== 0;
-    if (isCorrectFileInput) {
+    const isFileInputCorrect = name === 'file' && inputImg.files && inputImg.files.length !== 0;
+    if (isFileInputCorrect) {
       this.setState({
         img: URL.createObjectURL((inputImg.files as FileList)[0]),
         file: true,
@@ -98,8 +98,8 @@ class Form extends React.Component<Props, State> {
     const dataProcessing = this.dataProcessingInput.current as HTMLInputElement;
     const regexp = /\.(jpe?g|svg|png|gif)$/i;
     const validateFile = (): boolean => {
-      const isCorrectFileInput = inputImg.files && inputImg.files.length !== 0;
-      if (isCorrectFileInput) {
+      const isFileInputCorrect = inputImg.files && inputImg.files.length !== 0;
+      if (isFileInputCorrect) {
         if ((inputImg.files as FileList)[0].name.match(regexp)) {
           return true;
         }

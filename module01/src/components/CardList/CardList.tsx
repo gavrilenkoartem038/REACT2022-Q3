@@ -11,7 +11,7 @@ export interface IProps {
 class CardList extends React.Component<IProps> {
   filterCards(cards: ICard[]) {
     const { isErrorRequest } = this.props;
-    if (cards && cards.length) {
+    if (cards?.length) {
       return cards.map((card) => <Card card={card} key={card.id} />);
     }
     return (
