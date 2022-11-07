@@ -1,15 +1,15 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { changeSearchData } from 'store/mainPageSlice';
 import { useAppSelector } from 'store/store';
 
 import Select from 'components/Select/Select';
 
 import './SearchOptions.css';
-import { useDispatch } from 'react-redux';
-import React from 'react';
-import { changeSearchData } from 'store/mainPageSlice';
 
 function SearchOptions() {
   const searchData = useAppSelector((state) => state.mainPage.searchData);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const changeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target;

@@ -2,13 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { changeSearchData } from 'store/mainPageSlice';
 import { useAppSelector } from 'store/store';
-import { ActionTypes } from 'store/types';
 
 import './Pagination.css';
 
 function Pagination() {
   const searchData = useAppSelector((state) => state.mainPage.searchData);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <div>

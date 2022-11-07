@@ -22,6 +22,8 @@ export interface SearchData {
 export interface MainPage {
   searchData: SearchData;
   searchString: string;
+  pending: boolean;
+  errorMessage: string;
 }
 
 export type FormPageActions =

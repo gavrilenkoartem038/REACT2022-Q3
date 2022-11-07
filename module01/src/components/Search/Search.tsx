@@ -1,8 +1,6 @@
-import React, { ChangeEvent, FormEvent, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { changeSearchString } from 'store/mainPageSlice';
-import { useAppSelector } from 'store/store';
-import { ActionTypes } from 'store/types';
+import { useAppDispatch, useAppSelector } from 'store/store';
 
 import './Search.css';
 
@@ -10,10 +8,9 @@ interface Props {
   func: () => void;
 }
 
-function Search(props: Props) {
-  const { func } = props;
+function Search({ func }: Props) {
   const searchString = useAppSelector((state) => state.mainPage.searchString);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(changeSearchString(event.target.value));

@@ -1,31 +1,22 @@
 import React from 'react';
+import { useAppSelector } from 'store/store';
 
 import Card from 'components/Card/Card';
-import { ICard } from 'types/types';
 
-export interface Props {
-  cards: ICard[];
-  isErrorRequest: boolean;
-}
-
-function CardList(props: Props) {
-  const filterCards = (cards: ICard[]) => {
-    const { isErrorRequest } = props;
-    if (cards && cards.length) {
+function CardList() {
+  const { cards } = useAppSelector((state) => state.mainPage.searchData);
+  const { errorMessage } = useAppSelector((state) => state.mainPage);
+  const filterCards = () => {
+    if (cards?.length) {
       // eslint-disable-next-line no-underscore-dangle
       return cards.map((card) => <Card card={card} key={card._id} />);
     }
     return (
-      <div className="text-center">
-        {isErrorRequest ? 'Something went wrong. Please try again' : 'Cards not found'}
-      </div>
+      <div className="text-center">{errorMessage === '' ? 'Cards not found.' : errorMessage}</div>
     );
   };
-  const { cards } = props;
 
-  return (
-    <div className="container grid grid-cols-auto justify-evenly gap-8">{filterCards(cards)}</div>
-  );
+  return <div className="container grid grid-cols-auto justify-evenly gap-8">{filterCards()}</div>;
 }
 
 export default CardList;
