@@ -7,7 +7,7 @@ import Select from 'components/Select/Select';
 
 import './SearchOptions.css';
 
-function SearchOptions() {
+const SearchOptions = () => {
   const searchData = useAppSelector((state) => state.mainPage.searchData);
   const dispatch = useDispatch();
 
@@ -42,6 +42,6 @@ function SearchOptions() {
       />
     </div>
   );
-}
+};
 
 export default SearchOptions;

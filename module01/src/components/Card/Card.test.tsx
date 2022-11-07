@@ -50,7 +50,7 @@ describe('Card component', () => {
   //   expect(modal.classList.contains('active')).toBe(false);
   // });
 
-  // it('should noy close modal window on click modal content', () => {
+  // it('should not close modal window on click modal content', () => {
   //   render(<Card card={mockCard} />);
   //   const card = screen.getByTestId('card');
   //   const modal = screen.getByTestId('modal');

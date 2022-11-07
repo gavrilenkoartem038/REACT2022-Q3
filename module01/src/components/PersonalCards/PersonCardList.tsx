@@ -6,7 +6,7 @@ interface Props {
   cards: PersconCard[];
 }
 
-function PersonCardList(props: Props) {
+const PersonCardList = (props: Props) => {
   const { cards } = props;
   return (
     <div className="container grid grid-cols-auto1 justify-evenly gap-8">
@@ -38,6 +38,6 @@ function PersonCardList(props: Props) {
         })}
     </div>
   );
-}
+};
 
 export default PersonCardList;

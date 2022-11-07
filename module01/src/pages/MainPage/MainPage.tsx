@@ -8,7 +8,7 @@ import Pagination from 'components/Pagination/Pagination';
 import Search from 'components/Search/Search';
 import SearchOptions from 'components/SearchOptions/SearchOptions';
 
-function MainPage() {
+const MainPage = () => {
   const { searchData, searchString, pending } = useAppSelector((state) => state.mainPage);
   const dispatch = useAppDispatch();
 
@@ -42,6 +42,6 @@ function MainPage() {
       )}
     </>
   );
-}
+};
 
 export default MainPage;

@@ -1,6 +1,6 @@
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
-export interface Props {
+export interface InputProps {
   type: string;
   name: string;
   label: string;

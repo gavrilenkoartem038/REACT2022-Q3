@@ -4,7 +4,7 @@ import { useAppSelector } from 'store/store';
 import Form from 'components/Form/Form';
 import PersonCardList from 'components/PersonalCards/PersonCardList';
 
-function FormPage() {
+const FormPage = () => {
   const { personCards } = useAppSelector((state) => state.formPage);
 
   return (
@@ -13,6 +13,6 @@ function FormPage() {
       <PersonCardList cards={personCards} />
     </>
   );
-}
+};
 
 export default FormPage;

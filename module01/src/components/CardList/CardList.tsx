@@ -3,7 +3,7 @@ import { useAppSelector } from 'store/store';
 
 import Card from 'components/Card/Card';
 
-function CardList() {
+const CardList = () => {
   const { cards } = useAppSelector((state) => state.mainPage.searchData);
   const { errorMessage } = useAppSelector((state) => state.mainPage);
   const filterCards = () => {
@@ -17,6 +17,6 @@ function CardList() {
   };
 
   return <div className="container grid grid-cols-auto justify-evenly gap-8">{filterCards()}</div>;
-}
+};
 
 export default CardList;

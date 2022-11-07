@@ -5,7 +5,7 @@ import { useAppSelector } from 'store/store';
 
 import './Pagination.css';
 
-function Pagination() {
+const Pagination = () => {
   const searchData = useAppSelector((state) => state.mainPage.searchData);
   const dispatch = useDispatch();
 
@@ -29,6 +29,6 @@ function Pagination() {
       </div>
     </div>
   );
-}
+};
 
 export default Pagination;
