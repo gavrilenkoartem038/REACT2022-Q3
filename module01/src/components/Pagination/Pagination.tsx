@@ -4,7 +4,7 @@ import { ActionTypes } from 'store/types';
 
 import './Pagination.css';
 
-function Pagination() {
+const Pagination = () => {
   const { state, dispatch } = useContext(Context);
   const { searchData } = state.mainPage;
 
@@ -31,6 +31,6 @@ function Pagination() {
       </div>
     </div>
   );
-}
+};
 
 export default Pagination;

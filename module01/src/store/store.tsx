@@ -54,11 +54,11 @@ const Reducer = (
   mainPage: mainPageReducer(mainPage, action as MainPageActions),
 });
 
-function Store({ children }: Props) {
+const Store = ({ children }: Props) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
-}
+};
 
 export { Context, Store };

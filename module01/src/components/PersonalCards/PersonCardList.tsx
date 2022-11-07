@@ -6,11 +6,10 @@ interface Props {
   cards: PersconCard[];
 }
 
-function PersonCardList(props: Props) {
-  const { cards } = props;
+const PersonCardList = ({ cards }: Props) => {
   return (
     <div className="container grid grid-cols-auto1 justify-evenly gap-8">
-      {cards.length > 0 &&
+      {cards?.length > 0 &&
         cards.map((card) => {
           return (
             <div
@@ -38,6 +37,6 @@ function PersonCardList(props: Props) {
         })}
     </div>
   );
-}
+};
 
 export default PersonCardList;

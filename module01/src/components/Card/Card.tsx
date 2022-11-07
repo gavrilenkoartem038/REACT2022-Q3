@@ -9,16 +9,18 @@ interface Props {
   card: ICard;
 }
 
-function Card(props: Props) {
-  const { card } = props;
+const Card = ({ card }: Props) => {
   const { name, race, gender, _id } = card;
 
   const navigate = useNavigate();
+  const navigateToModalPage = async () => {
+    navigate(`/cards/${_id}`);
+  };
 
   return (
     <div
       className="card flex flex-col p-4 gap-4 border-2 rounded-lg border-slate-300 bg-white"
-      onClick={async () => navigate(`/cards/${_id}`)}
+      onClick={navigateToModalPage}
       aria-hidden="true"
       data-testid="card"
     >
@@ -32,6 +34,6 @@ function Card(props: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

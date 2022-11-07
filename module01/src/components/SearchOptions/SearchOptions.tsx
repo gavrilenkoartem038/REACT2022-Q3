@@ -6,7 +6,7 @@ import Select from 'components/Select/Select';
 
 import './SearchOptions.css';
 
-function SearchOptions() {
+const SearchOptions = () => {
   const { state, dispatch } = useContext(Context);
   const { searchData } = state.mainPage;
 
@@ -44,6 +44,6 @@ function SearchOptions() {
       />
     </div>
   );
-}
+};
 
 export default SearchOptions;

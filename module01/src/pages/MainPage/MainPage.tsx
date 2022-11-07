@@ -10,7 +10,7 @@ import SearchOptions from 'components/SearchOptions/SearchOptions';
 
 const baseURL = 'https://the-one-api.dev/v2/character';
 
-function MainPage() {
+const MainPage = () => {
   const [isPending, setIsPending] = useState(false);
   const [isErrorRequest, setIsErrorRequest] = useState(false);
 
@@ -69,6 +69,6 @@ function MainPage() {
       )}
     </>
   );
-}
+};
 
 export default MainPage;

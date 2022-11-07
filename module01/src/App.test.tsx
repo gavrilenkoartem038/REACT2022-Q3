@@ -3,7 +3,13 @@ import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from 'App';
+import server from 'mocks/server';
 import { Store } from 'store/store';
+
+const newServer = server;
+beforeAll(() => newServer.listen());
+afterEach(() => newServer.resetHandlers());
+afterAll(() => newServer.close());
 
 describe('roter and render pages', () => {
   it('should renders main page', () => {

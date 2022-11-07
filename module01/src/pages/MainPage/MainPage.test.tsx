@@ -1,25 +1,15 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import { mockCardList } from 'mocks/mockData';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
+import server from 'mocks/server';
 import { Store } from 'store/store';
 
 import MainPage from './MainPage';
 
-const server = setupServer(
-  rest.get(`https://the-one-api.dev/v2/character`, (req, res, ctx) => {
-    req.url.searchParams.get('name');
-    req.url.searchParams.get('sort');
-    req.url.searchParams.get('limit');
-    req.url.searchParams.get('page');
-    return res(ctx.status(200), ctx.json({ docs: mockCardList, pages: 1, limit: 20, page: 1 }));
-  })
-);
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+const newServer = server;
+beforeAll(() => newServer.listen());
+afterEach(() => newServer.resetHandlers());
+afterAll(() => newServer.close());
 
 describe('Main page tests', () => {
   it('should render search input', () => {

@@ -7,7 +7,7 @@ import { ICard } from 'types/types';
 
 import './Modal.css';
 
-function Modal() {
+const Modal = () => {
   const { state } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -65,6 +65,6 @@ function Modal() {
       </div>
     </>
   );
-}
+};
 
 export default Modal;

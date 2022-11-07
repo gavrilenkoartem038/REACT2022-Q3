@@ -8,9 +8,8 @@ export interface Props {
   isErrorRequest: boolean;
 }
 
-function CardList(props: Props) {
-  const filterCards = (cards: ICard[]) => {
-    const { isErrorRequest } = props;
+const CardList = ({ isErrorRequest, cards }: Props) => {
+  const filterCards = () => {
     if (cards && cards.length) {
       // eslint-disable-next-line no-underscore-dangle
       return cards.map((card) => <Card card={card} key={card._id} />);
@@ -21,11 +20,8 @@ function CardList(props: Props) {
       </div>
     );
   };
-  const { cards } = props;
 
-  return (
-    <div className="container grid grid-cols-auto justify-evenly gap-8">{filterCards(cards)}</div>
-  );
-}
+  return <div className="container grid grid-cols-auto justify-evenly gap-8">{filterCards()}</div>;
+};
 
 export default CardList;

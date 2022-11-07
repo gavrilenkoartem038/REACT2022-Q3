@@ -8,8 +8,7 @@ interface Props {
   func: () => void;
 }
 
-function Search(props: Props) {
-  const { func } = props;
+const Search = ({ func }: Props) => {
   const { state, dispatch } = useContext(Context);
 
   const { searchString } = state.mainPage;
@@ -43,6 +42,6 @@ function Search(props: Props) {
       </form>
     </div>
   );
-}
+};
 
 export default Search;

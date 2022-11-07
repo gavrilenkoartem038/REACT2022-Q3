@@ -4,7 +4,7 @@ import { Context } from 'store/store';
 import Form from 'components/Form/Form';
 import PersonCardList from 'components/PersonalCards/PersonCardList';
 
-function FormPage() {
+const FormPage = () => {
   const { state } = useContext(Context);
 
   return (
@@ -13,6 +13,6 @@ function FormPage() {
       <PersonCardList cards={state.formPage.personCards} />
     </>
   );
-}
+};
 
 export default FormPage;

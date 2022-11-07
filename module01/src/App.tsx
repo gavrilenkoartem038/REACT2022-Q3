@@ -11,7 +11,7 @@ import NotFoundPage from 'pages/NotFounPage';
 
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <Store>
       <Routes>
@@ -25,6 +25,6 @@ function App() {
       </Routes>
     </Store>
   );
-}
+};
 
 export default App;

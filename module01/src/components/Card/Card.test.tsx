@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { mockCardList } from 'mocks/mockData';
-import { Store } from 'store/store';
 
 import Card from './Card';
 
@@ -32,11 +30,11 @@ describe('Card component', () => {
 
   // it('should open modal page on click card', async () => {
   //   render(
-  //     <Store>
-  //       <BrowserRouter>
+  //     <BrowserRouter>
+  //       <Store>
   //         <Card card={mockCard} />
-  //       </BrowserRouter>
-  //     </Store>
+  //       </Store>
+  //     </BrowserRouter>
   //   );
   //   const card = screen.getByTestId('card');
   //   userEvent.click(card);
@@ -52,7 +50,7 @@ describe('Card component', () => {
   //   expect(modal.classList.contains('active')).toBe(false);
   // });
 
-  // it('should noy close modal window on click modal content', () => {
+  // it('should not close modal window on click modal content', () => {
   //   render(<Card card={mockCard} />);
   //   const card = screen.getByTestId('card');
   //   const modal = screen.getByTestId('modal');
