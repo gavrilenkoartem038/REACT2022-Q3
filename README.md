@@ -1,2 +1,1 @@
-# gavrilenkoartem038-REACT2022Q3
-Private repository for @gavrilenkoartem038
+### Deploy: [React tasks](https://module05.netlify.app/)
